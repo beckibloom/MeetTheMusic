@@ -24,7 +24,7 @@
             <div class="date-selection">
                 <p>When?</p>
                 <label for="month1">From</label>
-                <select id="month1" name="month1" required>
+                <select id="month1" name="month1">
                     <option value="01" selected>January</option>
                     <option value="02">February</option>
                     <option value="03">March</option>
@@ -38,10 +38,10 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input day1" required>
-                <input type="number" placeholder="Year" class="date-input year1" required>
+                <input type="number" placeholder="Date" class="date-input day1">
+                <input type="number" placeholder="Year" class="date-input year1">
                 <label for="month2">To</label>
-                <select id="month2" name="month2" required>
+                <select id="month2" name="month2">
                     <option value="01" selected>January</option>
                     <option value="02">February</option>
                     <option value="03">March</option>
@@ -55,8 +55,8 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input day2" required>
-                <input type="number" placeholder="Year" class="date-input year2" required>
+                <input type="number" placeholder="Date" class="date-input day2">
+                <input type="number" placeholder="Year" class="date-input year2">
             </div>
         <button class="location-submit">Submit</button>
         </form>
@@ -69,7 +69,8 @@
         <span class="date-submitted">{DATE1 to DATE2}</span> in...</p>
         <div class="locations-list">
             <h3>(select the closest match)</h3>
-            <ul id="locations">
+            <form id="locations">
+            </form>
             </ul>
         </div>
     </div>

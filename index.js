@@ -32,10 +32,20 @@ function getEvents() {
 
 }
 
+function getItemIdFromElement(item) {
+    return $(item)
+        .closest('button')
+        .data('item-id');
+}
+
 function watchLocations() {
     // Listen for user to click a location option (event delegation) and get the location ID from user selection
     console.log('The wachLocations function ran.');
-
+    $('#locations').on('click', `.location-result`, event => {
+        event.preventDefault();
+        const id = getItemIdFromElement(event.currentTarget);
+        console.log(`A location option with id ${id} was selected.`)
+    })
 }
 
 function renderDates(dates) {
@@ -55,11 +65,12 @@ function renderLocations(responseJson, location, dates) {
 
     for (let i = 0; i < responseJson.resultsPage.results.location.length; i++){
         $('#locations').append(
-            `<li class="location-result">
+            `<button class="location-result" data-item-id="${responseJson.resultsPage.results.location[i].metroArea.id}">
             ${responseJson.resultsPage.results.location[i].city.displayName}, 
             ${responseJson.resultsPage.results.location[i].city.state.displayName}, 
             ${responseJson.resultsPage.results.location[i].city.country.displayName}
-            </li>`)};
+            </button>`)};
+    watchLocations();
 }
 
 function formatQueryParams(params) {
