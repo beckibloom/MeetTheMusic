@@ -41,13 +41,16 @@ function watchLocations() {
 function renderDates(dates) {
     // Render the dates the user has submitted in the browser heading
     console.log(`The renderDates function ran with dates = ${dates}.`);
+    const min_date = dates[0];
+    const max_date = dates[1];
+    $('.date-submitted').text(`${min_date} to ${max_date}`);
 }
 
 function renderLocations(responseJson, location, dates) {
     // Use data from Songkick to render a list of location options for user to select
     console.log(`The renderLocations function ran with location ${location}, dates ${dates}, and responseJson was:`);
     console.log(responseJson)
-    // renderDates(dates);
+    renderDates(dates);
 }
 
 function formatQueryParams(params) {
