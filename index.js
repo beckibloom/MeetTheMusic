@@ -47,10 +47,19 @@ function renderDates(dates) {
 }
 
 function renderLocations(responseJson, location, dates) {
+    renderDates(dates);
+
     // Use data from Songkick to render a list of location options for user to select
     console.log(`The renderLocations function ran with location ${location}, dates ${dates}, and responseJson was:`);
     console.log(responseJson)
-    renderDates(dates);
+
+    for (let i = 0; i < responseJson.resultsPage.results.location.length; i++){
+        $('#locations').append(
+            `<li class="location-result">
+            ${responseJson.resultsPage.results.location[i].city.displayName}, 
+            ${responseJson.resultsPage.results.location[i].city.state.displayName}, 
+            ${responseJson.resultsPage.results.location[i].city.country.displayName}
+            </li>`)};
 }
 
 function formatQueryParams(params) {
