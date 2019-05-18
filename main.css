@@ -10,11 +10,34 @@ body {
     line-height:24px;
 }
 
+.hidden {
+    display:none;
+}
+
+/* Header Styles */
+
+header {
+    width:100%;
+    background:darkmagenta;
+    color:white;
+    text-align:center;
+}
+
+h1 {
+    margin:0;
+    line-height:50px;
+}
+
+.subtitle {
+    font-size:22px;
+    line-height:30px;
+}
+
 /* Landing view styles */
 
 .landing-view {
     border:2px solid blue;
-    width:250px;
+    width:275px;
     margin-left:auto;
     margin-right:auto;
     margin-top:20px;
@@ -34,36 +57,65 @@ input {
 
 .location-select {
     border:2px solid red;
-    width:250px;
+    width:275px;
     margin-left:auto;
     margin-right:auto;
     margin-top:20px;
     padding:8px;
+}
+
+.date-submitted {
+    font-weight:bold;
 }
 
 /* Artist Response Styles */
 
 .artist-response {
     border:2px solid green;
-    width:250px;
+    width:275px;
     margin-left:auto;
     margin-right:auto;
     margin-top:20px;
     padding:8px;
     display:flex;
+    flex-direction:column;
 }
 
 .artists {
     border:2px solid yellow;
-    width:50%;
+    width:100%;
     margin-right:0;
     padding:8px;
+}
+
+.artist-name {
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+.event-detail {
+    font-size:12px;
+    font-style:italic;
+}
+
+.event-link {
+    font-size:12px;
+    text-decoration:underline;
+    color:blue;
 }
 
 /* Music player styles */
 
 .music-player {
     background:yellow;
+}
+
+.player-placeholder {
+    background:black;
+    border:2px solid yellow;
+    width:100%;
+    min-height:100px;
+    color:white;
 }
 
 /* Footer styles */
@@ -73,14 +125,18 @@ footer {
     width:100%;
     background:black;
     color:white;
-    position:absolute;
+    position:fixed;
     bottom:0;
+    height:50px;
 }
 
 footer ul {
     list-style-type:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px;
 }
 
 footer li {
-    display:inline-block;
 }

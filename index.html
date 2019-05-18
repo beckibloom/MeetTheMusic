@@ -11,6 +11,10 @@
 </head>
 
 <body>
+<header>
+    <h1>Meet the Music</h1>
+    <p class="subtitle">Find your next concert - anywhere, anytime.</p>
+</header>
 <main>
     <div class="landing-view">
         <form action="">
@@ -19,7 +23,25 @@
             <input type="text" name="location-search" class="location-input">
             <div class="date-selection">
                 <p>When?</p>
-                <select id="month" name="month">
+                <label for="month1">From</label>
+                <select id="month" name="month1">
+                    <option selected>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+                <input type="number" placeholder="Date" class="date-input">
+                <input type="number" placeholder="Year" class="date-input">
+                <label for="month2">To</label>
+                <select id="month" name="month2">
                     <option selected>January</option>
                     <option>February</option>
                     <option>March</option>
@@ -39,12 +61,65 @@
         </form>
     </div>
 
-    <div class="location-select"></div>
-    
-    <div class="artist-response">
-        <div class="artists"></div>
-        <div class="artists music-player"></div>
+    <div class="location-select">
+        <p>Searching for upcoming concerts from</p>
+        <p class="date-submitted">{DATE1 to DATE2}</p>
+        <hr>
+        <h3>Did you mean...</h3>
+        <ul class="locations">
+            <li class="location-result">{location-result}</li>
+            <li class="location-result">{location-result}</li>
+            <li class="location-result">{location-result}</li>
+            <li class="location-result">{location-result}</li>
+            <li class="location-result">{location-result}</li>
+        </ul>
     </div>
+
+    <div class="artist-response">
+        <div class="artists">
+            <p>Check out these events coming up! Click an artist's name to sample their top tracks in the player below.</p>
+            <ul>
+                <li class="artist-result">
+                    <p class="artist-name">{Artist Name}</p>
+                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
+                    <p class="event-link">{buy-tickets-link}</p>
+                </li>
+                <li class="artist-result">
+                    <p class="artist-name">{Artist Name}</p>
+                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
+                    <p class="event-link">{buy-tickets-link}</p>
+                </li>
+                <li class="artist-result">
+                    <p class="artist-name">{Artist Name}</p>
+                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
+                    <p class="event-link">{buy-tickets-link}</p>
+                </li>
+                <li class="artist-result">
+                    <p class="artist-name">{Artist Name}</p>
+                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
+                    <p class="event-link">{buy-tickets-link}</p>
+                </li>
+                <li class="artist-result">
+                    <p class="artist-name">{Artist Name}</p>
+                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
+                    <p class="event-link">{buy-tickets-link}</p>
+                </li>
+                <li class="artist-result request-more">
+                    <button>See more events</p>
+                </li>    
+            </ul>
+        </div>
+
+        <div class="artists music-player">
+            <h3><span class="play-artist">{Artist Name}</span> Top Tracks</h3>
+            <p class="not-supported hidden">So sorry- it looks like this browser doesn't support our music player yet! :(</p>
+            <div class="player-placeholder">
+                <span class="spotify-results">{Spotify results}</span>
+            </div>
+        </div>
+
+    </div>
+
 </main>
 
 <footer>
@@ -56,6 +131,8 @@
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script src="playback.js"></script>
 <script src="index.js"></script>
 
 </html>
