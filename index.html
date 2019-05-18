@@ -20,43 +20,43 @@
         <form action="">
             <label for="location-search">Where are you going?</label>
             <br>
-            <input type="text" name="location-search" class="location-input">
+            <input type="text" name="location-search" class="location-input" required>
             <div class="date-selection">
                 <p>When?</p>
                 <label for="month1">From</label>
-                <select id="month" name="month1">
-                    <option selected>January</option>
-                    <option>February</option>
-                    <option>March</option>
-                    <option>April</option>
-                    <option>May</option>
-                    <option>June</option>
-                    <option>July</option>
-                    <option>August</option>
-                    <option>September</option>
-                    <option>October</option>
-                    <option>November</option>
-                    <option>December</option>
+                <select id="month1" name="month1" required>
+                    <option value="01" selected>January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input">
-                <input type="number" placeholder="Year" class="date-input">
+                <input type="number" placeholder="Date" class="date-input day1" required>
+                <input type="number" placeholder="Year" class="date-input year1" required>
                 <label for="month2">To</label>
-                <select id="month" name="month2">
-                    <option selected>January</option>
-                    <option>February</option>
-                    <option>March</option>
-                    <option>April</option>
-                    <option>May</option>
-                    <option>June</option>
-                    <option>July</option>
-                    <option>August</option>
-                    <option>September</option>
-                    <option>October</option>
-                    <option>November</option>
-                    <option>December</option>
+                <select id="month2" name="month2" required>
+                    <option value="01" selected>January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input">
-                <input type="number" placeholder="Year" class="date-input">
+                <input type="number" placeholder="Date" class="date-input day2" required>
+                <input type="number" placeholder="Year" class="date-input year2" required>
             </div>
         <button class="location-submit">Submit</button>
         </form>
@@ -137,8 +137,8 @@
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://sdk.scdn.co/spotify-player.js"></script>
-<script src="playback.js"></script>
+<!-- <script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script src="playback.js"></script> -->
 <script src="index.js"></script>
 
 </html>
