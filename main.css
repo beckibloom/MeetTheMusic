@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    margin:0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    margin-bottom:75px;
+    font-size:18px;
+    line-height:24px;
+}
+
+/* Landing view styles */
+
+.landing-view {
+    border:2px solid blue;
+    width:250px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
+    padding:8px;
+}
+
+input {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.date-input {
+    width:50px;
+}
+
+/* Location Select Styles */
+
+.location-select {
+    border:2px solid red;
+    width:250px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
+    padding:8px;
+}
+
+/* Artist Response Styles */
+
+.artist-response {
+    border:2px solid green;
+    width:250px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
+    padding:8px;
+    display:flex;
+}
+
+.artists {
+    border:2px solid yellow;
+    width:50%;
+    margin-right:0;
+    padding:8px;
+}
+
+/* Music player styles */
+
+.music-player {
+    background:yellow;
+}
+
+/* Footer styles */
+
+footer {
+    font-size:16px;
+    width:100%;
+    background:black;
+    color:white;
+    position:absolute;
+    bottom:0;
+}
+
+footer ul {
+    list-style-type:none;
+}
+
+footer li {
+    display:inline-block;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Meet the Music</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Averia+Serif+Libre|Nunito" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images\favicon.png"/>
+</head>
+
+<body>
+<main>
+    <div class="landing-view">
+        <form action="">
+            <label for="location-search">Where are you going?</label>
+            <br>
+            <input type="text" name="location-search" class="location-input">
+            <div class="date-selection">
+                <p>When?</p>
+                <select id="month" name="month">
+                    <option selected>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+                <input type="number" placeholder="Date" class="date-input">
+                <input type="number" placeholder="Year" class="date-input">
+            </div>
+        </form>
+    </div>
+
+    <div class="location-select"></div>
+    
+    <div class="artist-response">
+        <div class="artists"></div>
+        <div class="artists music-player"></div>
+    </div>
+</main>
+
+<footer>
+    <ul>
+        <li>Event data provided by Songkick</li>
+        <li>Song streaming provided by Spotify</li>
+    </ul>
+</footer>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="index.js"></script>
+
+</html>
