@@ -64,6 +64,11 @@ input {
     padding:8px;
 }
 
+.locations-list {
+    border:2px solid yellow;
+    padding:8px;
+}
+
 .date-submitted {
     font-weight:bold;
 }
@@ -79,6 +84,10 @@ input {
     padding:8px;
     display:flex;
     flex-direction:column;
+}
+
+.location-submitted {
+    font-weight:bold;
 }
 
 .artists {

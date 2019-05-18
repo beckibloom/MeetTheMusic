@@ -58,24 +58,30 @@
                 <input type="number" placeholder="Date" class="date-input">
                 <input type="number" placeholder="Year" class="date-input">
             </div>
+        <button class="location-submit">Submit</button>
         </form>
     </div>
 
     <div class="location-select">
-        <p>Searching for upcoming concerts from</p>
-        <p class="date-submitted">{DATE1 to DATE2}</p>
-        <hr>
-        <h3>Did you mean...</h3>
-        <ul class="locations">
-            <li class="location-result">{location-result}</li>
-            <li class="location-result">{location-result}</li>
-            <li class="location-result">{location-result}</li>
-            <li class="location-result">{location-result}</li>
-            <li class="location-result">{location-result}</li>
-        </ul>
+        <p>Searching for upcoming concerts from
+        <span class="date-submitted">{DATE1 to DATE2}</span></p>
+        <div class="locations-list">
+            <h3>Did you mean...</h3>
+            <ul class="locations">
+                <li class="location-result">{location-result}</li>
+                <li class="location-result">{location-result}</li>
+                <li class="location-result">{location-result}</li>
+                <li class="location-result">{location-result}</li>
+                <li class="location-result">{location-result}</li>
+            </ul>
+        </div>
     </div>
 
     <div class="artist-response">
+        <p>Searching for upcoming concerts from
+        <span class="date-submitted">{DATE1 to DATE2}</span>
+        in <span class="location-submitted">{LOCATION}</span>
+        </p>
         <div class="artists">
             <p>Check out these events coming up! Click an artist's name to sample their top tracks in the player below.</p>
             <ul>
