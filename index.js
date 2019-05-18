@@ -43,10 +43,11 @@ function renderDates(dates) {
     console.log(`The renderDates function ran with dates = ${dates}.`);
 }
 
-function renderLocations(dates) {
+function renderLocations(responseJson, location, dates) {
     // Use data from Songkick to render a list of location options for user to select
-    console.log('The renderLocations function ran.');
-    renderDates(dates);
+    console.log(`The renderLocations function ran with location ${location}, dates ${dates}, and responseJson was:`);
+    console.log(responseJson)
+    // renderDates(dates);
 }
 
 function formatQueryParams(params) {
@@ -69,7 +70,18 @@ function getLocations(location, dates) {
     const url = 'https://api.songkick.com/api/3.0/search/locations.json?' + queryString;
     console.log(`fetching data from URL ${url}`);
 
-    // renderLocations(location, dates);
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
+            (response.statusText);
+        })
+        .then(responseJson => renderLocations(responseJson, location, dates))
+        .catch(err => {
+            $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
+        });
 }
 
 function watchForm() {

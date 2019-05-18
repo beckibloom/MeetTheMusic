@@ -53,6 +53,11 @@ input {
     width:50px;
 }
 
+.js-error-message {
+    text-align:center;
+    color:red;
+}
+
 /* Location Select Styles */
 
 .location-select {
