@@ -1,3 +1,5 @@
+'use strict';
+
 function getTopTracks() {
     // Use Spotify API to get top tracks from selected artist for listening in web player
     // RESEARCH WEB PLAYER IMPLEMENTATION
@@ -36,22 +38,38 @@ function watchLocations() {
 
 }
 
-function renderDates() {
+function renderDates(dates) {
     // Render the dates the user has submitted in the browser heading
-    console.log('The renderDates function ran.');
-
+    console.log(`The renderDates function ran with dates = ${dates}.`);
 }
 
-function renderLocations() {
+function renderLocations(dates) {
     // Use data from Songkick to render a list of location options for user to select
     console.log('The renderLocations function ran.');
-
+    renderDates(dates);
 }
 
-function getLocations(query, dates) {
-    // Use Songkick API to fetch location options
-    console.log(`The getLocations function ran with query = ${query} and dates = ${dates}`);
+function formatQueryParams(params) {
+    const queryItems = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    return queryItems.join('&');
+}
 
+function getLocations(location, dates) {
+    // Use Songkick API to fetch location options
+    console.log(`The getLocations function ran with location = ${location} and dates = ${dates}`);
+
+    const apikeySK = 'c7qHSQfxsiGbcNRd';
+    const params = {
+        apikey: apikeySK,
+        query: location,
+        page:1,
+        per_page:5,
+    }
+    const queryString = formatQueryParams(params);
+    const url = 'https://api.songkick.com/api/3.0/search/locations.json?' + queryString;
+    console.log(`fetching data from URL ${url}`);
+
+    // renderLocations(location, dates);
 }
 
 function watchForm() {
@@ -59,14 +77,14 @@ function watchForm() {
     console.log('The watchForm function ran.');
     $('.location-submit').click(function() {
         event.preventDefault();
-        let query = $('.location-input').val();
+        let location = $('.location-input').val();
         // Creating the variable 'dates' as an array with two items for min_date and max_date
         // Songkick date format must be YYYY-MM-DD
         let date1 = `${$('.year1').val()}-${$('#month1').val()}-${$('.day1').val()}`;
         let date2 = `${$('.year2').val()}-${$('#month2').val()}-${$('.day2').val()}`;
         let dates = [date1,date2];
         //Run the getLocations function to get locations from Songkick with the form information
-        getLocations(query, dates);
+        getLocations(location, dates);
     });
 };
 
