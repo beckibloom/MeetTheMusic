@@ -53,7 +53,7 @@ input {
     width:50px;
 }
 
-.js-error-message {
+.error {
     text-align:center;
     color:red;
 }
@@ -141,7 +141,7 @@ footer {
     color:white;
     position:fixed;
     bottom:0;
-    height:50px;
+    height:60px;
 }
 
 footer ul {

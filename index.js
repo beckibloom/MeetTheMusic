@@ -26,10 +26,21 @@ function renderEventList() {
 
 }
 
-function getEvents() {
+function getEvents(id) {
     // Use the location ID from user location selection to fetch event data for their indicated dates
-    console.log('The getEvents function ran.');
-
+    console.log(`The getEvents function ran with location ID ${id}.`);
+    let url = `https://api.songkick.com/api/3.0/events.json?apikey=c7qHSQfxsiGbcNRd&location=sk:${id}`
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
+            (response.statusText);
+        })
+        .then(responseJson => renderEventList(responseJson))
+        .catch(err => {$('.js-event-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
+    });
 }
 
 function getItemIdFromElement(item) {
@@ -45,6 +56,7 @@ function watchLocations() {
         event.preventDefault();
         const id = getItemIdFromElement(event.currentTarget);
         console.log(`A location option with id ${id} was selected.`)
+        getEvents(id);
     })
 }
 
