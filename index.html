@@ -24,7 +24,7 @@
             <div class="date-selection">
                 <p>When?</p>
                 <label for="month1">From</label>
-                <select id="month1" name="month1">
+                <select id="month1" name="month1" required>
                     <option value="01" selected>January</option>
                     <option value="02">February</option>
                     <option value="03">March</option>
@@ -38,10 +38,10 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input day1">
-                <input type="number" placeholder="Year" class="date-input year1">
+                <input type="number" placeholder="Date" class="date-input day1" required>
+                <input type="number" placeholder="Year" class="date-input year1" required>
                 <label for="month2">To</label>
-                <select id="month2" name="month2">
+                <select id="month2" name="month2" required>
                     <option value="01" selected>January</option>
                     <option value="02">February</option>
                     <option value="03">March</option>
@@ -55,8 +55,8 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input day2">
-                <input type="number" placeholder="Year" class="date-input year2">
+                <input type="number" placeholder="Date" class="date-input day2" required>
+                <input type="number" placeholder="Year" class="date-input year2" required>
             </div>
         <button class="location-submit">Submit</button>
         </form>
@@ -84,35 +84,7 @@
         </p>
         <div class="artists">
             <p>Check out these events coming up! Click an artist's name to sample their top tracks in the player below.</p>
-            <ul>
-                <li class="artist-result">
-                    <p class="artist-name">{Artist Name}</p>
-                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
-                    <p class="event-link">{buy-tickets-link}</p>
-                </li>
-                <li class="artist-result">
-                    <p class="artist-name">{Artist Name}</p>
-                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
-                    <p class="event-link">{buy-tickets-link}</p>
-                </li>
-                <li class="artist-result">
-                    <p class="artist-name">{Artist Name}</p>
-                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
-                    <p class="event-link">{buy-tickets-link}</p>
-                </li>
-                <li class="artist-result">
-                    <p class="artist-name">{Artist Name}</p>
-                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
-                    <p class="event-link">{buy-tickets-link}</p>
-                </li>
-                <li class="artist-result">
-                    <p class="artist-name">{Artist Name}</p>
-                    <p class="event-detail"><span class="date">{date}</span> at <span class="venue">{venue}</span></p>
-                    <p class="event-link">{buy-tickets-link}</p>
-                </li>
-                <li class="artist-result request-more">
-                    <button>See more events</p>
-                </li>    
+            <ul id="events">  
             </ul>
         </div>
 

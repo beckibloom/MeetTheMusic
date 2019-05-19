@@ -78,6 +78,10 @@ input {
     font-weight:bold;
 }
 
+button {
+    display:block;
+}
+
 /* Artist Response Styles */
 
 .artist-response {

@@ -17,19 +17,57 @@ function getMoreEvents() {
     // Listen for the user to click the "see more events" button then run getEvents/renderEventList again for more items
     // NOT A PRIORITY
     console.log('The getMoreEvents function ran.');
-
+    
 }
 
-function renderEventList() {
-    // Use the data from the getEvents function to render the Event list in the browser
-    console.log('The renderEventList function ran.');
+function renderEventList(responseJson, locationDisplayName) {
+    //Update the location displayed at the top of this section
+    $('.location-submitted').text(`${locationDisplayName}`);
 
+    //Use the data from the getEvents function to render the Event list in the browser
+    console.log('The renderEventList function ran with response');
+    console.log(responseJson);
+    for (let i = 0; i < responseJson.resultsPage.results.event.length; i++){
+        let concertName = `${responseJson.resultsPage.results.event[i].displayName}`;
+        let venue = `${responseJson.resultsPage.results.event[i].venue.displayName}`;
+        let date = `${responseJson.resultsPage.results.event[i].start.date}`;
+        let eventLink = `${responseJson.resultsPage.results.event[i].uri}`;
+         $('#events').append(
+             `<li class="artist-result">
+                <p class="artist-name">${concertName}</p>
+                <p class="event-detail">${date} at ${venue}</p>
+                <p class="event-link"><a href="${eventLink}" target="_blank">More info & buy tickets</a></p>`)
+        for (let j = 0; j < responseJson.resultsPage.results.event[i].performance.length; j++){
+            let artist = `${responseJson.resultsPage.results.event[i].performance[j].artist.displayName}`;
+            $('#events').append(
+                `<li class="artist-result"><button class="listen">Listen to ${artist}</button></li>`
+            );
+    }
+    };
+    $('#events').append(
+        `<li class="artist-result request-more">
+        <button class="see-more">See more events</button>
+        </li>`
+    )
 }
 
-function getEvents(id) {
+function getEvents(id, locationDisplayName, dates) {
     // Use the location ID from user location selection to fetch event data for their indicated dates
     console.log(`The getEvents function ran with location ID ${id}.`);
-    let url = `https://api.songkick.com/api/3.0/events.json?apikey=c7qHSQfxsiGbcNRd&location=sk:${id}`
+    const date_min = dates[0];
+    const date_max = dates[1];
+    let params = {
+        apikey: `c7qHSQfxsiGbcNRd`,
+        location: `sk:${id}`,
+        min_date: `${date_min}`,
+        max_date: `${date_max}`,
+        type: 'Concert',
+        per_page: 10
+    };
+    const queryString = formatQueryParams(params);
+    const url = `https://api.songkick.com/api/3.0/events.json?` + queryString;
+    console.log(`The getEvents function is fetching data from URL ${url}`);
+
     fetch(url)
         .then(response => {
             if (response.ok) {
@@ -38,7 +76,7 @@ function getEvents(id) {
             throw new Error
             (response.statusText);
         })
-        .then(responseJson => renderEventList(responseJson))
+        .then(responseJson => renderEventList(responseJson, locationDisplayName))
         .catch(err => {$('.js-event-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
     });
 }
@@ -49,14 +87,16 @@ function getItemIdFromElement(item) {
         .data('item-id');
 }
 
-function watchLocations() {
+function watchLocations(dates) {
     // Listen for user to click a location option (event delegation) and get the location ID from user selection
     console.log('The wachLocations function ran.');
     $('#locations').on('click', `.location-result`, event => {
         event.preventDefault();
         const id = getItemIdFromElement(event.currentTarget);
         console.log(`A location option with id ${id} was selected.`)
-        getEvents(id);
+        let locationDisplayName = event.currentTarget.innerText;
+        console.log(`locationDisplayName is ${locationDisplayName}`);
+        getEvents(id, locationDisplayName, dates);
     })
 }
 
@@ -82,7 +122,7 @@ function renderLocations(responseJson, location, dates) {
             ${responseJson.resultsPage.results.location[i].city.state.displayName}, 
             ${responseJson.resultsPage.results.location[i].city.country.displayName}
             </button>`)};
-    watchLocations();
+    watchLocations(dates);
 }
 
 function formatQueryParams(params) {
