@@ -10,14 +10,18 @@ function getTopTracks() {
 function watchArtists() {
     // Listen for user to click an artist option then run getTopTracks
     console.log('The watchArtists function ran.');
-
+    $('#events').on('click', `.listen`, event => {
+        event.preventDefault();
+        const artist = event.currentTarget.innerText;
+        $('.play-artist').text(artist);
+    })
 }
 
 function getMoreEvents() {
     // Listen for the user to click the "see more events" button then run getEvents/renderEventList again for more items
     // NOT A PRIORITY
     console.log('The getMoreEvents function ran.');
-    
+
 }
 
 function renderEventList(responseJson, locationDisplayName) {
@@ -40,7 +44,7 @@ function renderEventList(responseJson, locationDisplayName) {
         for (let j = 0; j < responseJson.resultsPage.results.event[i].performance.length; j++){
             let artist = `${responseJson.resultsPage.results.event[i].performance[j].artist.displayName}`;
             $('#events').append(
-                `<li class="artist-result"><button class="listen">Listen to ${artist}</button></li>`
+                `<li class="artist-result">Listen to:<button class="listen">${artist}</button></li>`
             );
     }
     };
@@ -49,6 +53,7 @@ function renderEventList(responseJson, locationDisplayName) {
         <button class="see-more">See more events</button>
         </li>`
     )
+    watchArtists();
 }
 
 function getEvents(id, locationDisplayName, dates) {
@@ -116,12 +121,14 @@ function renderLocations(responseJson, location, dates) {
     console.log(responseJson)
 
     for (let i = 0; i < responseJson.resultsPage.results.location.length; i++){
+        const state = responseJson.resultsPage.results.location[i].city.state ? responseJson.resultsPage.results.location[i].city.state.displayName + ',' : ''
         $('#locations').append(
             `<button class="location-result" data-item-id="${responseJson.resultsPage.results.location[i].metroArea.id}">
             ${responseJson.resultsPage.results.location[i].city.displayName}, 
-            ${responseJson.resultsPage.results.location[i].city.state.displayName}, 
+            ${state} 
             ${responseJson.resultsPage.results.location[i].city.country.displayName}
             </button>`)};
+        console.log(responseJson.resultsPage.results.location[i]);
     watchLocations(dates);
 }
 
