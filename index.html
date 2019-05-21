@@ -88,29 +88,49 @@
             </ul>
         </div>
 
-        <div class="artists music-player" id="music-player$$">
+        <div class="artists music-player" id="music-player">
             <h3><span class="play-artist">{Artist Name}</span> Top Tracks</h3>
             <p class="not-supported hidden">So sorry- it looks like this browser doesn't support our music player yet! :(</p>
-            <div class="player-placeholder">
-                <span class="spotify-results">{Spotify results}</span>
+            <div id="player-frame">
+
+<!-- HTML Content from the Napster Developer example -->
+
+                <div class="container">
+                    <div class="header">
+                        Top Tracks
+                    </div>
+                        
+                    <div id="tracks-container">
+                    </div>
+                </div>
+                <script id="tracks-template" type="text/x-handlebars-template">
+                    {{#each tracks}}
+                    <div data-track-id="{{id}}" style="background-image:url(http://direct.rhapsody.com/imageserver/v2/albums/{{albumId}}/images/300x300.jpg)" class="cover">
+                    <div class=content-name>{{name}}</div>
+                    <audio controls class= "audio">
+                        <source src="{{previewURL}}" type="audio/mpeg">
+                    </audio>
+                    </div>
+                    {{/each}}
+                </script>
+
+<!-- End content from Napster Developer example -->
+
             </div>
         </div>
-
     </div>
-
 </main>
 
 <footer>
     <ul>
         <li>Event data provided by Songkick</li>
-        <li>Song streaming provided by Spotify</li>
+        <li>Song streaming provided by Napster</li>
     </ul>
 </footer>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="https://sdk.scdn.co/spotify-player.js"></script>
-<script src="playback.js"></script> -->
+<script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
 <script src="index.js"></script>
 
 </html>

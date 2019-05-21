@@ -1,10 +1,21 @@
 'use strict';
 
-function getTopTracks() {
-    // Use Spotify API to get top tracks from selected artist for listening in web player
-    // RESEARCH WEB PLAYER IMPLEMENTATION
+function getNapsterData(artist) {
     console.log('The getTopTracks function ran.');
+    // 1 - Do a search query with Napster for the artist
+    const apikeyN = 'MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
+    const params = {
+        apikey: apikeyN,
+        query: artist,
+        type: 'artist',
+    }
+    const queryString = formatQueryParams(params);
+    const searchUrl = 'http://api.napster.com/v2.2/search?' + queryString;
+    console.log(`fetching data from URL ${searchURL}`);
 
+    // 2 - Get the top tracks link from the artist object
+    // 3 - add the top tracks to the dom in the player-frame
+    playNapster();
 }
 
 function watchArtists() {
@@ -14,7 +25,8 @@ function watchArtists() {
         event.preventDefault();
         const artist = event.currentTarget.innerText;
         $('.play-artist').text(artist);
-    })
+        getNapsterData(artist);
+        })
 }
 
 function getMoreEvents() {
@@ -181,5 +193,24 @@ function watchForm() {
         getLocations(location, dates);
     });
 };
+
+function playNapster() {
+    // Napster JS
+
+    const tracksTemplateSource = document.getElementById('tracks-template').innerHTML;
+    const tracksTemplate = Handlebars.compile(tracksTemplateSource);
+
+    const $tracks = $('#tracks-container');
+
+
+
+
+    const getTopTracks = $.get('https://api.napster.com/v2.2/artists/art.954/tracks/top?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl');
+
+    getTopTracks
+    .then((response) => {
+        $tracks.html(tracksTemplate(response));
+    });
+}
 
 watchForm();
