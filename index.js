@@ -28,7 +28,7 @@ function getArtistObject(artist) {
         type: 'artist',
     }
     const queryString = formatQueryParams(params);
-    const searchURL = 'http://api.napster.com/v2.2/search?' + queryString;
+    const searchURL = 'https://api.napster.com/v2.2/search?' + queryString;
     console.log(`fetching data from URL ${searchURL}`);
 
     fetch(searchURL)
