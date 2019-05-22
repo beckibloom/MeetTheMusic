@@ -81,15 +81,20 @@ function renderEventList(responseJson, locationDisplayName) {
         for (let j = 0; j < responseJson.resultsPage.results.event[i].performance.length; j++){
             let artist = `${responseJson.resultsPage.results.event[i].performance[j].artist.displayName}`;
             $('#events').append(
-                `<li class="artist-result">Listen to:<button class="listen">${artist}</button></li>`
+                `<li class="artist-result">Listen to:
+                
+                <button class="listen>${artist}</button>
+                
+                </li>`
             );
     }
     };
     $('#events').append(
         `<li class="artist-result request-more">
-        <button class="see-more">See more events</button>
+            <button class="see-more">See more events</button>
         </li>`
     )
+    $('.artist-response').toggleClass('hidden');
     watchArtists();
 }
 
@@ -138,6 +143,7 @@ function watchLocations(dates) {
         console.log(`A location option with id ${id} was selected.`)
         let locationDisplayName = event.currentTarget.innerText;
         console.log(`locationDisplayName is ${locationDisplayName}`);
+        $('.location-select').toggleClass('hidden');
         getEvents(id, locationDisplayName, dates);
     })
 }
@@ -166,6 +172,8 @@ function renderLocations(responseJson, location, dates) {
             ${responseJson.resultsPage.results.location[i].city.country.displayName}
             </button>`)};
     watchLocations(dates);
+    $('.location-select').toggleClass('hidden');
+
 }
 
 function formatQueryParams(params) {
@@ -214,6 +222,7 @@ function watchForm() {
         let date2 = `${$('.year2').val()}-${$('#month2').val()}-${$('.day2').val()}`;
         let dates = [date1,date2];
         //Run the getLocations function to get locations from Songkick with the form information
+        $('.landing-view').toggleClass('hidden');
         getLocations(location, dates);
     });
 };

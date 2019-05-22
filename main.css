@@ -10,10 +10,6 @@ body {
     line-height:24px;
 }
 
-.hidden {
-    display:none;
-}
-
 /* Header Styles */
 
 header {
@@ -208,4 +204,8 @@ footer li {
     color: blue;
     cursor: pointer;
     text-decoration: underline;
+}
+
+.hidden {
+    display:none;
 }

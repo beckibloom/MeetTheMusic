@@ -66,7 +66,7 @@
         <!-- <span class="js-error-message error"></span> -->
     </div>
 
-    <div class="location-select">
+    <div class="location-select hidden">
         <p>Searching for upcoming concerts from
         <span class="date-submitted">{DATE1 to DATE2}</span> in...</p>
         <div class="locations-list">
@@ -79,7 +79,7 @@
 
     <span class="js-event-error error"></span>
 
-    <div class="artist-response">
+    <div class="artist-response hidden">
         <p>Searching for upcoming concerts from
         <span class="date-submitted">{DATE1 to DATE2}</span>
         in <span class="location-submitted">{LOCATION}</span>
@@ -91,6 +91,7 @@
         </div>
 
         <div class="artists music-player" id="music-player">
+            <a name="musicplayer"></a>
             <h3><span class="play-artist">{Artist Name}</span> Top Tracks</h3>
             <p class="not-supported hidden">So sorry- it looks like this browser doesn't support our music player yet! :(</p>
             <div id="player-frame">
