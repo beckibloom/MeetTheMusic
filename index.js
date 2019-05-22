@@ -1,6 +1,24 @@
 'use strict';
 
-function getNapsterData(artist) {
+function playNapster(responseJson, apikeyN) {
+    // Napster JS
+
+    const topTracksLink = responseJson.search.data.artists[0].links.topTracks.href
+
+    const tracksTemplateSource = document.getElementById('tracks-template').innerHTML;
+    const tracksTemplate = Handlebars.compile(tracksTemplateSource);
+
+    const $tracks = $('#tracks-container');
+
+    const getTopTracks = $.get(`${topTracksLink}?apikey=${apikeyN}`);
+
+    getTopTracks
+    .then((response) => {
+        $tracks.html(tracksTemplate(response));
+    });
+}
+
+function getArtistObject(artist) {
     console.log('The getTopTracks function ran.');
     // 1 - Do a search query with Napster for the artist
     const apikeyN = 'MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
@@ -10,12 +28,19 @@ function getNapsterData(artist) {
         type: 'artist',
     }
     const queryString = formatQueryParams(params);
-    const searchUrl = 'http://api.napster.com/v2.2/search?' + queryString;
+    const searchURL = 'http://api.napster.com/v2.2/search?' + queryString;
     console.log(`fetching data from URL ${searchURL}`);
 
-    // 2 - Get the top tracks link from the artist object
-    // 3 - add the top tracks to the dom in the player-frame
-    playNapster();
+    fetch(searchURL)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
+            (response.statusText);
+        })
+        .then(responseJson => playNapster(responseJson, apikeyN))
+        .catch(err => {$('.js-napster-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
 }
 
 function watchArtists() {
@@ -25,7 +50,7 @@ function watchArtists() {
         event.preventDefault();
         const artist = event.currentTarget.innerText;
         $('.play-artist').text(artist);
-        getNapsterData(artist);
+        getArtistObject(artist);
         })
 }
 
@@ -132,7 +157,7 @@ function renderLocations(responseJson, location, dates) {
     console.log(`The renderLocations function ran with location ${location}, dates ${dates}, and responseJson was:`);
     console.log(responseJson)
 
-    for (let i = 0; i < responseJson.resultsPage.results.location.length; i++){
+    for (let i = 0; i < responseJson.resultsPage.results.location.length; i++) {
         const state = responseJson.resultsPage.results.location[i].city.state ? responseJson.resultsPage.results.location[i].city.state.displayName + ',' : ''
         $('#locations').append(
             `<button class="location-result" data-item-id="${responseJson.resultsPage.results.location[i].metroArea.id}">
@@ -140,7 +165,6 @@ function renderLocations(responseJson, location, dates) {
             ${state} 
             ${responseJson.resultsPage.results.location[i].city.country.displayName}
             </button>`)};
-        console.log(responseJson.resultsPage.results.location[i]);
     watchLocations(dates);
 }
 
@@ -193,24 +217,5 @@ function watchForm() {
         getLocations(location, dates);
     });
 };
-
-function playNapster() {
-    // Napster JS
-
-    const tracksTemplateSource = document.getElementById('tracks-template').innerHTML;
-    const tracksTemplate = Handlebars.compile(tracksTemplateSource);
-
-    const $tracks = $('#tracks-container');
-
-
-
-
-    const getTopTracks = $.get('https://api.napster.com/v2.2/artists/art.954/tracks/top?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl');
-
-    getTopTracks
-    .then((response) => {
-        $tracks.html(tracksTemplate(response));
-    });
-}
 
 watchForm();
