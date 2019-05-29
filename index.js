@@ -62,6 +62,8 @@ function getMoreEvents() {
 }
 
 function renderEventList(responseJson, locationDisplayName) {
+    $('.artist-response').toggleClass('hidden');
+
     //Update the location displayed at the top of this section
     $('.location-submitted').text(`${locationDisplayName}`);
 
@@ -76,14 +78,13 @@ function renderEventList(responseJson, locationDisplayName) {
          $('#events').append(
              `<li class="artist-result">
                 <p class="artist-name">${concertName}</p>
-                <p class="event-detail">${date} at ${venue}</p>
                 <p class="event-link"><a href="${eventLink}" target="_blank">More info & buy tickets</a></p>`)
         for (let j = 0; j < responseJson.resultsPage.results.event[i].performance.length; j++){
             let artist = `${responseJson.resultsPage.results.event[i].performance[j].artist.displayName}`;
             $('#events').append(
                 `<li class="artist-result">Listen to:
                 
-                <button class="listen>${artist}</button>
+                <button class="listen">${artist}</button>
                 
                 </li>`
             );
@@ -94,7 +95,6 @@ function renderEventList(responseJson, locationDisplayName) {
             <button class="see-more">See more events</button>
         </li>`
     )
-    $('.artist-response').toggleClass('hidden');
     watchArtists();
 }
 
@@ -157,6 +157,7 @@ function renderDates(dates) {
 }
 
 function renderLocations(responseJson, location, dates) {
+    $('.location-select').toggleClass('hidden');
     renderDates(dates);
 
     // Use data from Songkick to render a list of location options for user to select
@@ -172,7 +173,6 @@ function renderLocations(responseJson, location, dates) {
             ${responseJson.resultsPage.results.location[i].city.country.displayName}
             </button>`)};
     watchLocations(dates);
-    $('.location-select').toggleClass('hidden');
 
 }
 
