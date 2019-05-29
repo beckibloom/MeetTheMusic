@@ -120,6 +120,7 @@ button {
 
 .music-player {
     background:yellow;
+    min-height:300px;
 }
 
 .player-placeholder {
@@ -176,6 +177,7 @@ footer li {
 .audio {
     position: absolute;
     bottom: 0;
+    width:100px;
 }
 .cover:hover {
     cursor: pointer;

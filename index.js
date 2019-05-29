@@ -12,10 +12,14 @@ function playNapster(responseJson, apikeyN) {
 
     const getTopTracks = $.get(`${topTracksLink}?apikey=${apikeyN}`);
 
-    getTopTracks
-    .then((response) => {
-        $tracks.html(tracksTemplate(response));
-    });
+        getTopTracks
+        .then((response) => {
+            if (response.tracks.length === 0) {
+                document.getElementById('tracks-container').innerHTML =
+                    `<p class="error">There are no tracks available for this artist.</p>`
+            }
+            else {$tracks.html(tracksTemplate(response));}
+        });
 }
 
 function getArtistObject(artist) {
@@ -40,7 +44,13 @@ function getArtistObject(artist) {
             (response.statusText);
         })
         .then(responseJson => playNapster(responseJson, apikeyN))
+        .finally(() => scrollToPlayer())
         .catch(err => {$('.js-napster-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
+}
+
+function scrollToPlayer() {
+    let current = window.location.href;
+    window.location.href = current.replace(/#(.*)$/, '') + '#musicplayer';
 }
 
 function watchArtists() {
@@ -83,9 +93,7 @@ function renderEventList(responseJson, locationDisplayName) {
             let artist = `${responseJson.resultsPage.results.event[i].performance[j].artist.displayName}`;
             $('#events').append(
                 `<li class="artist-result">Listen to:
-                
                 <button class="listen">${artist}</button>
-                
                 </li>`
             );
     }
