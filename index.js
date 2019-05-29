@@ -124,7 +124,11 @@ function getEvents(id, locationDisplayName, dates) {
             (response.statusText);
         })
         .then(responseJson => renderEventList(responseJson, locationDisplayName))
-        .catch(err => {$('.js-event-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
+        .catch(err => {
+            if (responseJson.totalEntries === 0) {
+                $('.js-event-error').text(`It looks like there are no events listed for your search. Refresh the page to try a new search.`);
+            }
+            $('.js-event-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
     });
 }
 
@@ -213,18 +217,76 @@ function getLocations(location, dates) {
 function watchForm() {
     // Listen for user to input location and dates and click submit
     console.log('The watchForm function ran.');
+    $('#day1').on('blur', function() {
+        let str = document.getElementById('day1').value;
+        console.log(`Value of string is ${str}`);
+        document.getElementById('day1').value = str.padStart(2, "0");
+    })
+
+    $('#day2').on('blur', function() {
+        let str = document.getElementById('day2').value;
+        console.log(`Value of string is ${str}`);
+        document.getElementById('day2').value = str.padStart(2, "0");
+    })
+
+    $('#year1').on('blur', function() {
+        let str = document.getElementById('year1').value;
+        console.log(`Value of string is ${str}`);
+        document.getElementById('year1').value = str.padStart(4, "20");
+    })
+
+    $('#year2').on('blur', function() {
+        let str = document.getElementById('year2').value;
+        console.log(`Value of string is ${str}`);
+        document.getElementById('year2').value = str.padStart(4, "20");
+    })
+
     $('.location-submit').click(function() {
         event.preventDefault();
+
+        let locationInput = $('#location').val();
+        console.log(`the value of location input is ${locationInput}`)
+        if (locationInput.length <= 3) {
+            $('.location').toggleClass('hidden');
+            throw 'error';
+        };
+
+        let dateInputFirst = $('#day1').val();
+        if (dateInputFirst.length < 2) {
+            $('.dates').toggleClass('hidden');
+            throw 'error';
+        }
+
+        let dateInputSecond = $('#day2').val();
+        if (dateInputSecond.length < 2) {
+            $('.dates').toggleClass('hidden');
+            throw 'error';
+        }
+
+        let yearInputFirst = $('#year1').val();
+        if (yearInputFirst.length < 4) {
+            $('.dates').toggleClass('hidden');
+            throw 'error';
+        }
+
+        let yearInputSecond = $('#year2').val();
+        if (yearInputSecond.length < 4) {
+            $('.dates').toggleClass('hidden');
+            throw 'error';
+        }
+
         let location = $('.location-input').val();
         // Creating the variable 'dates' as an array with two items for min_date and max_date
         // Songkick date format must be YYYY-MM-DD
-        let date1 = `${$('.year1').val()}-${$('#month1').val()}-${$('.day1').val()}`;
-        let date2 = `${$('.year2').val()}-${$('#month2').val()}-${$('.day2').val()}`;
+        let date1 = `${$('#year1').val()}-${$('#month1').val()}-${$('#day1').val()}`;
+        let date2 = `${$('#year2').val()}-${$('#month2').val()}-${$('#day2').val()}`;
         let dates = [date1,date2];
         //Run the getLocations function to get locations from Songkick with the form information
         $('.landing-view').toggleClass('hidden');
         getLocations(location, dates);
     });
+
+    $('.landing-view').toggleClass('hidden');
 };
 
 watchForm();

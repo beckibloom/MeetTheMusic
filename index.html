@@ -16,11 +16,12 @@
     <p class="subtitle">Find your next concert - anywhere, anytime.</p>
 </header>
 <main>
-    <div class="landing-view">
+    <div class="landing-view hidden">
         <form action="">
             <label for="location-search">Where are you going?</label>
             <br>
-            <input type="text" name="location-search" class="location-input" required>
+            <input type="text" name="location-search" class="location-input" id="location" required>
+            <span class="location error hidden">Please provide more information about your location.</span>
             <div class="date-selection">
                 <p>When?</p>
                 <label for="month1">From</label>
@@ -38,8 +39,8 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input day1" required>
-                <input type="number" placeholder="Year" class="date-input year1" required>
+                <input type="number" placeholder="Date" class="date-input" id="day1" required>
+                <input type="number" placeholder="Year" class="date-input" id="year1" required>
                 <label for="month2">To</label>
                 <select id="month2" name="month2" required>
                     <option value="01" selected>January</option>
@@ -55,8 +56,8 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input day2" required>
-                <input type="number" placeholder="Year" class="date-input year2" required>
+                <input type="number" placeholder="Date" class="date-input" id="day2" required>
+                <input type="number" placeholder="Year" class="date-input" id="year2" required><span class="dates error hidden">Please provide more information about your travel dates.</span>
             </div>
         <button class="location-submit">Submit</button>
         </form>
