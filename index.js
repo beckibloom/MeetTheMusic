@@ -294,7 +294,58 @@ function watchForm() {
         getLocations(location, dates);
     });
 
+    getStaffPicks();
+
     $('.landing-view').toggleClass('hidden');
 };
+
+function renderAlbumArt(oneAlbumURL) {
+    $('#album-container').append(
+        `<img class="album-image" src="${oneAlbumURL}">`
+    );
+    // let myElement = document.querySelector("body");
+    // myElement.style.background="purple";
+}
+
+function getOneAlbum(responseJson) {
+    let oneAlbumArt = $.grep(responseJson.images, function(image) {
+        return image.width == 170;
+    });
+    let oneAlbumURL = oneAlbumArt[0].url;
+    renderAlbumArt(oneAlbumURL);
+}
+
+function getAlbumArt(responseJson) {
+    for (let i = 0; i < responseJson.albums.length; i++) {
+        let url = `${responseJson.albums[i].links.images.href}?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl`;
+
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error
+                (response.statusText);})
+            .then(responseJson => getOneAlbum(responseJson))
+            .catch(err => {
+                $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)
+            })
+    }
+}
+
+function getStaffPicks() {
+    let url = 'https://api.napster.com/v2.2/albums/picks?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
+
+    fetch(url) 
+        .then(response =>  {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
+            (response.statusText);})
+        .then(responseJson => getAlbumArt(responseJson))
+        .catch(err => {
+            $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
+}
 
 watchForm();
