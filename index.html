@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Averia+Serif+Libre|Nunito" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="images\favicon.png"/>
     <link href="https://fonts.googleapis.com/css?family=Chivo|Comfortaa&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,11 +18,14 @@
     <p class="subtitle">Find your next concert - anywhere, anytime.</p>
 </header>
 <main>
+    <div id="album-container"></div>
+
     <div class="landing-view hidden">
+        <p class="instructions">Enter the information for where you're going and when. Get back a list of concert events to attend, and listen in to discover the artist you want to see.</p>
         <form action="">
             <label for="location-search">Where are you going?</label>
             <br>
-            <input type="text" name="location-search" class="location-input" id="location" required>
+            <input type="text" name="location-search" class="location-input" id="location" value="Chicago" required>
             <span class="location error hidden">Please provide more information about your location.</span>
             <div class="date-selection">
                 <p>When?</p>
@@ -40,8 +44,9 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input" id="day1" required>
-                <input type="number" placeholder="Year" class="date-input" id="year1" required>
+                <input type="number" placeholder="Date" class="date-input" id="day1" value="01" required>
+                <input type="number" placeholder="Year" class="date-input" id="year1" value="2020" required>
+                <br>
                 <label for="month2">To</label>
                 <select id="month2" name="month2" required>
                     <option value="01" selected>January</option>
@@ -57,24 +62,22 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input" id="day2" required>
-                <input type="number" placeholder="Year" class="date-input" id="year2" required><span class="dates error hidden">Please provide more information about your travel dates.</span>
+                <input type="number" placeholder="Date" class="date-input" id="day2" value="31" required>
+                <input type="number" placeholder="Year" class="date-input" id="year2" value="2020" required><span class="dates error hidden">Please provide more information about your travel dates.</span>
             </div>
         <button class="location-submit">Submit</button>
         </form>
     </div>
-
-    <div id="album-container"></div>
 
     <div class="js-error-message error">
         <!-- <span class="js-error-message error"></span> -->
     </div>
 
     <div class="location-select hidden">
-        <p>Searching for upcoming concerts from
-        <span class="date-submitted">{DATE1 to DATE2}</span> in...</p>
+        <p>Searching for upcoming concerts from</p>
+        <p class="date-submitted">{DATE1 to DATE2}</p> 
+        <p>in... (select closest match)</p>
         <div class="locations-list">
-            <h3>(select the closest match)</h3>
             <form id="locations">
             </form>
             </ul>
@@ -84,10 +87,11 @@
     <span class="js-event-error error"></span>
 
     <div class="artist-response hidden">
-        <p>Searching for upcoming concerts from
-        <span class="date-submitted">{DATE1 to DATE2}</span>
+        <p>Searching for upcoming concerts from</p>
+        <p class="date-submitted">{DATE1 to DATE2}</p>
         in <span class="location-submitted">{LOCATION}</span>
         </p>
+
         <div class="artists">
             <p>Check out these events coming up! Click an artist's name to sample their top tracks in the player below.</p>
             <ul id="events">  
@@ -132,14 +136,18 @@
 
 <footer>
     <ul>
-        <li>Event data provided by Songkick</li>
-        <li>Song streaming provided by Napster</li>
+        <li class="credit">Event data provided by Songkick</li>
+        <li class="credit right">Song streaming & album art provided by Napster</li>
     </ul>
 </footer>
 </body>
 
+<script src="date-en-US.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/x.y.z/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es-us.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
+<!-- <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script> -->
+<script src="handlebars.js"></script>
 <script src="index.js"></script>
 
 </html>

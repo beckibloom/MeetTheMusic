@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: 'Chivo', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin-bottom:75px;
     font-size:18px;
     line-height:24px;
@@ -14,8 +14,12 @@ body {
 /* Header Styles */
 
 header {
-    width:100%;
-    background:darkmagenta;
+    width:75%;
+    min-width:275px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:40px;
+    background:#F22E2E;
     color:white;
     text-align:center;
 }
@@ -38,44 +42,69 @@ div {
 }
 
 .landing-view {
-    border:2px solid blue;
-    width:60%;
+    border:2px solid #F22E2E;
+    width:75%;
     min-width:275px;
     margin-left:auto;
     margin-right:auto;
-    margin-top:20px;
+    margin-top:0;
     padding:8px;
 }
 
-input {
+.instructions {
+    font-size:16px;
+}
+
+form {
+    margin-top:10px;
+    text-align:center;
+}
+
+label {
+    line-height:30px;
+}
+
+input, select {
     margin-top:5px;
-    margin-bottom:5px;
+    margin-bottom:15px;
+    border:1px solid #F22E2E;
+    font-size:16px;
+    border-radius:5px;
+    text-align:center;
+    color:#0D0D0D;
+}
+
+select:hover {
+    cursor:text;
 }
 
 .date-input {
-    width:50px;
+    width:60px;
+}
+
+.location-submit {
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .error {
     text-align:center;
-    color:red;
+    color:#F22E2E;
 }
 
 #album-container {
-    border: 1px solid black;
     width:100%;
-    height:100%;
-    top:0;
     position:absolute;
+    top:0;
     z-index:-1;
     display:flex;
-    flex-direction:column;
-    flex-wrap:wrap;
-    background:black;
+    flex-flow:row wrap;
+    background:#0D0D0D;
     align-items:center;
     align-content:center;
-    justify-content:flex-start;
+    justify-content:center;
     overflow:hidden;
+    text-align:center;
 }
 
 .album-image {
@@ -85,26 +114,35 @@ input {
 /* Location Select Styles */
 
 .location-select {
-    border:2px solid red;
+    border:2px solid #F22E2E;
     width:75%;
     min-width:275px;
     margin-left:auto;
     margin-right:auto;
-    margin-top:20px;
-    padding:8px;
+    padding:16px;
 }
 
 .locations-list {
-    border:2px solid yellow;
-    padding:8px;
 }
 
 .date-submitted {
     font-weight:bold;
 }
 
+.location-result {
+    width:250px;
+}
+
 button {
     display:block;
+    background-color:#F22E2E;
+    color:white;
+    border-radius:5px;
+    padding-top:8px;
+    padding-bottom:8px;
+    padding-left:15px;
+    padding-right:15px;
+    font-family:'Comfortaa', cursive;
 }
 
 /* Artist Response Styles */
@@ -161,24 +199,22 @@ button {
 /* Footer styles */
 
 footer {
-    font-size:16px;
+    font-size:12px;
     width:100%;
-    background:black;
+    background:#F22E2E;
     color:white;
     position:fixed;
     bottom:0;
-    height:60px;
+    height:30px;
 }
 
 footer ul {
     list-style-type:none;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    padding:10px;
-}
-
-footer li {
+    justify-content:space-between;
+    padding-left:5px;
+    padding-right:5px;
 }
 
 /* Napster Styles */
@@ -236,3 +272,14 @@ footer li {
 .hidden {
     display:none;
 }
+
+@media screen and (min-width: 999px) {
+    .artist-response {
+        flex-direction:row;
+        width:75%;
+    }
+    .artists {
+        width:50%;
+    }
+
+  }

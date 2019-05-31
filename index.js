@@ -163,9 +163,15 @@ function watchLocations(dates) {
 function renderDates(dates) {
     // Render the dates the user has submitted in the browser heading
     console.log(`The renderDates function ran with dates = ${dates}.`);
-    const min_date = dates[0];
-    const max_date = dates[1];
-    $('.date-submitted').text(`${min_date} to ${max_date}`);
+    // console.log(new Date(date1).toISOString().getMonth() + 1);
+
+    const startDate = new Date(dates[0]);
+    console.log(startDate);
+    const startMonth = startDate.getMonth() + 2;
+    const startDay = startDate.getDay() - 1;
+    const startYear = startDate.getFullYear();
+
+    $('.date-submitted').text(`${startMonth} ${startDay}, ${startYear} to ${startMonth} ${startDay}, ${startYear}`);
 }
 
 function renderLocations(responseJson, location, dates) {
@@ -185,7 +191,6 @@ function renderLocations(responseJson, location, dates) {
             ${responseJson.resultsPage.results.location[i].city.country.displayName}
             </button>`)};
     watchLocations(dates);
-
 }
 
 function formatQueryParams(params) {
@@ -195,7 +200,8 @@ function formatQueryParams(params) {
 
 function getLocations(location, dates) {
     // Use Songkick API to fetch location options
-    console.log(`The getLocations function ran with location = ${location} and dates = ${dates}`);
+    console.log(`The getLocations function ran with location = ${location} and dates = 
+    ${dates}`);
 
     const apikeySK = 'c7qHSQfxsiGbcNRd';
     const params = {
@@ -286,7 +292,9 @@ function watchForm() {
         let location = $('.location-input').val();
         // Creating the variable 'dates' as an array with two items for min_date and max_date
         // Songkick date format must be YYYY-MM-DD
+
         let date1 = `${$('#year1').val()}-${$('#month1').val()}-${$('#day1').val()}`;
+        // console.log(new Date(date1).toISOString().getMonth() + 1);
         let date2 = `${$('#year2').val()}-${$('#month2').val()}-${$('#day2').val()}`;
         let dates = [date1,date2];
         //Run the getLocations function to get locations from Songkick with the form information
@@ -295,6 +303,9 @@ function watchForm() {
     });
 
     getStaffPicks();
+    getTopAlbums();
+
+    // console.log(moment.now);
 
     $('.landing-view').toggleClass('hidden');
 };
@@ -335,6 +346,21 @@ function getAlbumArt(responseJson) {
 
 function getStaffPicks() {
     let url = 'https://api.napster.com/v2.2/albums/picks?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
+
+    fetch(url) 
+        .then(response =>  {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
+            (response.statusText);})
+        .then(responseJson => getAlbumArt(responseJson))
+        .catch(err => {
+            $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
+}
+
+function getTopAlbums() {
+    let url = 'https://api.napster.com/v2.2/albums/top?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
 
     fetch(url) 
         .then(response =>  {
