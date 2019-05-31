@@ -70,9 +70,8 @@
     </div>
 
     <div class="js-error-message error">
-        <!-- <span class="js-error-message error"></span> -->
     </div>
-
+    
     <div class="location-select hidden">
         <header class="subheading">
             <p>Searching for upcoming concerts from</p>
@@ -95,45 +94,48 @@
             in <span class="location-submitted">(locations)</span></p>
         </header>
         
+        <div class="artists-flex">
 
-        <div class="artists">
-            <p>Check out these events coming up! Click an artist's name to sample their top tracks in the player below.</p>
-            <ul id="events">  
-            </ul>
-        </div>
-
-        <div class="artists music-player" id="music-player">
-            <a name="musicplayer"></a>
-            <h3><span class="play-artist">{Artist Name}</span> Top Tracks</h3>
-            <p class="not-supported hidden">So sorry- it looks like this browser doesn't support our music player yet! :(</p>
-            <div id="player-frame">
-
-            <!-- <iframe [src]="https://beckibloom.github.io/MeetTheMusic/" width="100%" height="600"> -->
-
-<!-- HTML Content from the Napster Developer example -->
-
-                <div class="container">
-                    <span class="js-napster-error error"></span>
-                        
-                    <div id="tracks-container">
-                    </div>
-                </div>
-                <script id="tracks-template" type="text/x-handlebars-template">
-                    {{#each tracks}}
-                    <div data-track-id="{{id}}" style="background-image:url(http://direct.rhapsody.com/imageserver/v2/albums/{{albumId}}/images/300x300.jpg)" class="cover">
-                    <div class=content-name>{{name}}</div>
-                    <audio controls class= "audio">
-                        <source src="{{previewURL}}" type="audio/mpeg">
-                    </audio>
-                    </div>
-                    {{/each}}
-                </script>
-
-<!-- End content from Napster Developer example -->
-
-            <!-- </iframe> -->
-
+            <div class="artists">
+                <p>Check out these events coming up! Click an artist's name to sample their top tracks in the player below.</p>
+                <ul id="events">  
+                </ul>
             </div>
+
+            <div class="artists music-player" id="music-player">
+                <a name="musicplayer"></a>
+                <h3><span class="play-artist">Click the name of any artist for a sample of their</span> top tracks</h3>
+                <p class="not-supported hidden">So sorry- it looks like this browser doesn't support our music player yet! :(</p>
+                <div id="player-frame">
+
+                <!-- <iframe [src]="https://beckibloom.github.io/MeetTheMusic/" width="100%" height="600"> -->
+
+                <!-- HTML Content from the Napster Developer example -->
+
+                    <div class="container">
+                        <span class="js-napster-error error"></span>
+                            
+                        <div id="tracks-container">
+                        </div>
+                    </div>
+                    <script id="tracks-template" type="text/x-handlebars-template">
+                        {{#each tracks}}
+                        <div data-track-id="{{id}}" style="background-image:url(http://direct.rhapsody.com/imageserver/v2/albums/{{albumId}}/images/300x300.jpg)" class="cover">
+                        <div class=content-name>{{name}}</div>
+                        <audio controls class= "audio">
+                            <source src="{{previewURL}}" type="audio/mpeg">
+                        </audio>
+                        </div>
+                        {{/each}}
+                    </script>
+
+                <!-- End content from Napster Developer example -->
+
+                <!-- </iframe> -->
+
+                </div>
+            </div>
+
         </div>
     </div>
 </main>

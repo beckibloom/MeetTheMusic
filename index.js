@@ -3,7 +3,9 @@
 function playNapster(responseJson, apikeyN) {
     // Napster JS
 
-    const topTracksLink = responseJson.search.data.artists[0].links.topTracks.href
+    const topTracksLink = responseJson.search.data.artists[0].links.topTracks.href;
+
+    console.log(`inside playNapster function, topTracksLink is ${topTracksLink}`);
 
     const tracksTemplateSource = document.getElementById('tracks-template').innerHTML;
     const tracksTemplate = Handlebars.compile(tracksTemplateSource);
@@ -23,7 +25,7 @@ function playNapster(responseJson, apikeyN) {
 }
 
 function getArtistObject(artist) {
-    console.log('The getTopTracks function ran.');
+    console.log('The getArtistObject function ran.');
     // 1 - Do a search query with Napster for the artist
     const apikeyN = 'MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
     const params = {
@@ -42,6 +44,13 @@ function getArtistObject(artist) {
             }
             throw new Error
             (response.statusText);
+        })
+        .then(responseJson => {
+            if (responseJson.meta.totalCount === 0){
+                throw new Error
+                (`This artist doesn't have any tracks available at this time.`)
+            }
+            return responseJson
         })
         .then(responseJson => playNapster(responseJson, apikeyN))
         .finally(() => scrollToPlayer())
