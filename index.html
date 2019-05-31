@@ -97,7 +97,10 @@
         <div class="artists-flex">
 
             <div class="artists">
-                <p>Check out these events coming up! Click an artist's name to sample their top tracks in the player below.</p>
+                <h3>Upcoming Events</h3>
+                <div class="error no-events-available hidden">Sorry, it looks like there are no events available for your search. 
+                    <button onClick="window.location.reload();">Search again</button>
+                </div>
                 <ul id="events">  
                 </ul>
             </div>
@@ -118,9 +121,15 @@
                         <div id="tracks-container">
                         </div>
                     </div>
+
                     <script id="tracks-template" type="text/x-handlebars-template">
                         {{#each tracks}}
-                        <div data-track-id="{{id}}" style="background-image:url(http://direct.rhapsody.com/imageserver/v2/albums/{{albumId}}/images/300x300.jpg)" class="cover">
+                        <!-- <div data-track-id="{{id}}" 
+                        style="background-image:url(https://api.napster.com/v2.2/albums/{{albumId}}/images?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4)" 
+                        class="cover"> -->
+                        <div data-track-id="{{id}}" 
+                        style="" 
+                        class="cover">
                         <div class=content-name>{{name}}</div>
                         <audio controls class= "audio">
                             <source src="{{previewURL}}" type="audio/mpeg">
@@ -134,8 +143,9 @@
                 <!-- </iframe> -->
 
                 </div>
-            </div>
 
+                <button class="search-again" onClick="window.location.reload();">Search again</button>
+            </div>
         </div>
     </div>
 </main>

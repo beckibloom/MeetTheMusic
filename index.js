@@ -37,6 +37,8 @@ function getArtistObject(artist) {
     const searchURL = 'https://api.napster.com/v2.2/search?' + queryString;
     console.log(`fetching data from URL ${searchURL}`);
 
+    $('.js-napster-error').text(``);
+
     fetch(searchURL)
         .then(response => {
             if (response.ok) {
@@ -89,6 +91,11 @@ function renderEventList(responseJson, locationDisplayName) {
     //Use the data from the getEvents function to render the Event list in the browser
     console.log('The renderEventList function ran with response');
     console.log(responseJson);
+
+    if (responseJson.resultsPage.totalEntries === 0) {
+        $('.no-events-available').toggleClass('hidden');
+    }
+
     for (let i = 0; i < responseJson.resultsPage.results.event.length; i++){
         let concertName = `${responseJson.resultsPage.results.event[i].displayName}`;
         let venue = `${responseJson.resultsPage.results.event[i].venue.displayName}`;
@@ -113,6 +120,7 @@ function renderEventList(responseJson, locationDisplayName) {
         <li class="artist-result bottom">
         <p class="event-link"><a href="${eventLink}" target="_blank" class="event link">More info & buy tickets</a></p></li>`);
     };
+
     // $('#events').append(
     //     `<li class="artist-result request-more">
     //         <button class="see-more">See more events</button>
