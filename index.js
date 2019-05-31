@@ -98,11 +98,11 @@ function renderEventList(responseJson, locationDisplayName) {
                 <img src="images/playbutton.png" class="playbutton">
                 ${artist}</button></p></li>`
             );
+        }
 
         $('#events').append(`
         <li class="artist-result bottom">
         <p class="event-link"><a href="${eventLink}" target="_blank" class="event link">More info & buy tickets</a></p></li>`);
-    }
     };
     // $('#events').append(
     //     `<li class="artist-result request-more">

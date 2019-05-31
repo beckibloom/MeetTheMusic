@@ -11,6 +11,23 @@ body {
     background:black;
 }
 
+a:link {
+    color:#F22E2E;
+}
+
+a:visited {
+    color:#BF3F3F;
+}
+
+a:hover {
+    color:#590202;
+    text-decoration:none;
+}
+
+a:active {
+    text-decoration:none;
+}
+
 /* Header Styles */
 
 header.main {
@@ -215,7 +232,6 @@ ul {
     width:15px;
     filter:invert(100%);
     float:left;
-    margin-top:5px;
     margin-right:10px;
 }
 
@@ -224,6 +240,9 @@ button.listen {
     margin-right:unset;
     margin-left:unset;
     text-align:left;
+    line-height:18px;
+    padding-top:15px;
+    padding-bottom:15px;
 }
 
 /* Music player styles */
