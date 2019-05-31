@@ -13,7 +13,7 @@ body {
 
 /* Header Styles */
 
-header {
+header.main {
     width:75%;
     min-width:275px;
     margin-left:auto;
@@ -21,6 +21,14 @@ header {
     margin-top:40px;
     background:#F22E2E;
     color:white;
+    text-align:center;
+}
+
+header.subheading {
+    background: #D8D9D7;
+    color: #0D0D0D;
+    border-radius: 5px;
+    padding: 5px;
     text-align:center;
 }
 
@@ -94,6 +102,7 @@ select:hover {
 
 #album-container {
     width:100%;
+    height:100%;
     position:absolute;
     top:0;
     z-index:-1;
@@ -104,7 +113,6 @@ select:hover {
     align-content:center;
     justify-content:center;
     overflow:hidden;
-    text-align:center;
 }
 
 .album-image {
@@ -120,6 +128,7 @@ select:hover {
     margin-left:auto;
     margin-right:auto;
     padding:16px;
+    text-align:center;
 }
 
 .locations-list {
@@ -142,18 +151,20 @@ button {
     padding-bottom:8px;
     padding-left:15px;
     padding-right:15px;
+    margin-left:auto;
+    margin-right:auto;
     font-family:'Comfortaa', cursive;
 }
 
 /* Artist Response Styles */
 
 .artist-response {
-    border:2px solid green;
+    border:2px solid #F22E2E;
     min-width:75%;
     width:275px;
     margin-left:auto;
     margin-right:auto;
-    margin-top:20px;
+    margin-top:0;
     padding:8px;
     display:flex;
     flex-direction:column;
@@ -164,21 +175,55 @@ button {
 }
 
 .artists {
-    border:2px solid yellow;
     width:100%;
     margin-right:0;
     padding:8px;
+    font-size:14px;
+}
+
+ul {
+    list-style-type:none;
+    padding:0;
+}
+
+.artist-result {
+    background:#0D0D0D;
+    color:#D8D9D7;
+    padding:5px;
+}
+
+.top {
+    margin-top:5px;
+}
+
+.bottom {
+    margin-bottom:5px;
 }
 
 .artist-name {
     font-weight:bold;
-    text-decoration:underline;
 }
 
 .event-link {
     font-size:12px;
+    text-align:center;
     text-decoration:underline;
-    color:blue;
+    color:#BF3F3F;
+}
+
+.playbutton {
+    width:15px;
+    filter:invert(100%);
+    float:left;
+    margin-top:5px;
+    margin-right:10px;
+}
+
+button.listen {
+    background:#590202;
+    margin-right:unset;
+    margin-left:unset;
+    text-align:left;
 }
 
 /* Music player styles */

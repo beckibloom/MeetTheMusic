@@ -85,24 +85,30 @@ function renderEventList(responseJson, locationDisplayName) {
         let venue = `${responseJson.resultsPage.results.event[i].venue.displayName}`;
         let date = `${responseJson.resultsPage.results.event[i].start.date}`;
         let eventLink = `${responseJson.resultsPage.results.event[i].uri}`;
+
          $('#events').append(
-             `<li class="artist-result">
-                <p class="artist-name">${concertName}</p>
-                <p class="event-link"><a href="${eventLink}" target="_blank">More info & buy tickets</a></p>`)
+             `<li class="artist-result top">
+                <p class="artist-name">${concertName}</p></li>`);
+
         for (let j = 0; j < responseJson.resultsPage.results.event[i].performance.length; j++){
             let artist = `${responseJson.resultsPage.results.event[i].performance[j].artist.displayName}`;
             $('#events').append(
-                `<li class="artist-result">Listen to:
-                <button class="listen">${artist}</button>
-                </li>`
+                `<li class="artist-result middle">
+                <p><button class="listen">
+                <img src="images/playbutton.png" class="playbutton">
+                ${artist}</button></p></li>`
             );
+
+        $('#events').append(`
+        <li class="artist-result bottom">
+        <p class="event-link"><a href="${eventLink}" target="_blank" class="event link">More info & buy tickets</a></p></li>`);
     }
     };
-    $('#events').append(
-        `<li class="artist-result request-more">
-            <button class="see-more">See more events</button>
-        </li>`
-    )
+    // $('#events').append(
+    //     `<li class="artist-result request-more">
+    //         <button class="see-more">See more events</button>
+    //     </li>`
+    // )
     watchArtists();
 }
 
@@ -160,23 +166,40 @@ function watchLocations(dates) {
     })
 }
 
-function renderDates(dates) {
+function renderDates(dates, dateArray) {
     // Render the dates the user has submitted in the browser heading
-    console.log(`The renderDates function ran with dates = ${dates}.`);
-    // console.log(new Date(date1).toISOString().getMonth() + 1);
+    console.log(`The renderDates function ran with dates = ${dates} and dateArray is`);
+    console.log(dateArray);
 
-    const startDate = new Date(dates[0]);
-    console.log(startDate);
-    const startMonth = startDate.getMonth() + 2;
-    const startDay = startDate.getDay() - 1;
-    const startYear = startDate.getFullYear();
+    const monthsArray = [
+        "",
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
 
-    $('.date-submitted').text(`${startMonth} ${startDay}, ${startYear} to ${startMonth} ${startDay}, ${startYear}`);
+    const startMonth = monthsArray[parseInt(dateArray[0].month,10)];
+    const endMonth = monthsArray[parseInt(dateArray[1].month,10)];
+
+    // console.log(`The first month in the first object in dateArray is ${monthsArray[startMonth]}`);
+    // console.log(`The end month in the first object in dateArray is ${monthsArray[endMonth]}`);
+
+
+    $('.date-submitted').text(`${startMonth} ${dateArray[0].day}, ${dateArray[0].year} to ${endMonth} ${dateArray[1].day}, ${dateArray[1].year}`);
 }
 
-function renderLocations(responseJson, location, dates) {
+function renderLocations(responseJson, location, dates, dateArray) {
     $('.location-select').toggleClass('hidden');
-    renderDates(dates);
+    renderDates(dates, dateArray);
 
     // Use data from Songkick to render a list of location options for user to select
     console.log(`The renderLocations function ran with location ${location}, dates ${dates}, and responseJson was:`);
@@ -198,7 +221,7 @@ function formatQueryParams(params) {
     return queryItems.join('&');
 }
 
-function getLocations(location, dates) {
+function getLocations(location, dates, dateArray) {
     // Use Songkick API to fetch location options
     console.log(`The getLocations function ran with location = ${location} and dates = 
     ${dates}`);
@@ -222,7 +245,7 @@ function getLocations(location, dates) {
             throw new Error
             (response.statusText);
         })
-        .then(responseJson => renderLocations(responseJson, location, dates))
+        .then(responseJson => renderLocations(responseJson, location, dates, dateArray))
         .catch(err => {
             $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
         });
@@ -298,8 +321,18 @@ function watchForm() {
         let date2 = `${$('#year2').val()}-${$('#month2').val()}-${$('#day2').val()}`;
         let dates = [date1,date2];
         //Run the getLocations function to get locations from Songkick with the form information
+
+        let dateArray = [
+            {month:$('#month1').val(),
+            day:$('#day1').val(),
+            year:$('#year1').val()},
+            {month:$('#month2').val(),
+            day:$('#day2').val(),
+            year:$('#year2').val()}
+        ]
+
         $('.landing-view').toggleClass('hidden');
-        getLocations(location, dates);
+        getLocations(location, dates, dateArray);
     });
 
     getStaffPicks();
