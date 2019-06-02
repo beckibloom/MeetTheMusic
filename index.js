@@ -10,6 +10,8 @@ function playNapster(responseJson, apikeyN) {
     const tracksTemplateSource = document.getElementById('tracks-template').innerHTML;
     const tracksTemplate = Handlebars.compile(tracksTemplateSource);
 
+    console.log(tracksTemplate);
+
     const $tracks = $('#tracks-container');
 
     const getTopTracks = $.get(`${topTracksLink}?apikey=${apikeyN}`);
@@ -84,6 +86,8 @@ function getMoreEvents() {
 
 function renderEventList(responseJson, locationDisplayName) {
     $('.artist-response').toggleClass('hidden');
+
+    $('.artist-response').fadeIn();
 
     //Update the location displayed at the top of this section
     $('.location-submitted').text(`${locationDisplayName}`);
@@ -216,6 +220,10 @@ function renderDates(dates, dateArray) {
 
 function renderLocations(responseJson, location, dates, dateArray) {
     $('.location-select').toggleClass('hidden');
+
+    $('.location-select').fadeIn();
+
+
     renderDates(dates, dateArray);
 
     // Use data from Songkick to render a list of location options for user to select
@@ -271,6 +279,10 @@ function getLocations(location, dates, dateArray) {
 function watchForm() {
     // Listen for user to input location and dates and click submit
     console.log('The watchForm function ran.');
+
+    $('main').fadeIn(3000);
+
+
     $('#day1').on('blur', function() {
         let str = document.getElementById('day1').value;
         console.log(`Value of string is ${str}`);
@@ -364,6 +376,8 @@ function renderAlbumArt(oneAlbumURL) {
     $('#album-container').append(
         `<img class="album-image" src="${oneAlbumURL}">`
     );
+
+    $('#album-container').addClass('load');
     // let myElement = document.querySelector("body");
     // myElement.style.background="purple";
 }

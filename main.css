@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     margin-bottom:75px;
     font-size:18px;
     line-height:24px;
@@ -52,7 +52,8 @@ header.subheading {
 h1 {
     margin:0;
     line-height:50px;
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Work Sans', sans-serif;
+    font-weight:900;
 }
 
 .subtitle {
@@ -133,6 +134,10 @@ select:hover {
     align-content:center;
     justify-content:center;
     overflow:hidden;
+}
+
+.load {
+    opacity:1;
 }
 
 .album-image {
@@ -271,18 +276,16 @@ button.listen {
 footer {
     font-size:12px;
     width:100%;
-    background:#F22E2E;
-    color:white;
+    background:#0D0D0D;
+    color:#BEBFB4;
     position:fixed;
     bottom:0;
-    height:30px;
+    line-height:18px;
 }
 
 footer ul {
     list-style-type:none;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+    text-align:center;
     padding-left:5px;
     padding-right:5px;
 }
@@ -333,44 +336,24 @@ footer ul {
 .cover:hover {
     cursor: pointer;
 }
-  
-.content-name{
-}
-  
-.back-button {
-    /* Remove all decorations to look like normal text */
-    background: none;
-    border: none;
-    display: inline;
-    font: inherit;
-    margin: 0;
-    padding: 0;
-    outline: none;
-    outline-offset: 0;
-    /* Additional styles to look like a link */
-    color: blue;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.search-again {
-    position:absolute;
-    bottom:10px;
-    right:10px;
-}
 
 .hidden {
     display:none;
 }
 
 @media screen and (min-width: 999px) {
+    .artist-response {
+        height:80vh;
+    }
     .artists-flex {
         display:flex;
         flex-direction:row;
+        overflow:hidden;
     }
     .artists {
         width:50%;
         margin:5px;
+        overflow-x:hidden;
     }
 
   }
