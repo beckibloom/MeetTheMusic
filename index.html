@@ -27,8 +27,15 @@
         <form action="">
             <label class="input-label" for="location-search">Where are you going?</label>
             <br>
-            <input type="text" name="location-search" class="location-input" id="location" placeholder="Search for your city" required>
-            <p class="location error hidden">Sorry, we can't find a location to match your search. Please try again.</p>
+            <input type="text" 
+                name="location-search" 
+                class="location-input" 
+                id="location" 
+                placeholder="Search for your city" 
+                required>
+            <p class="location error hidden">
+                Sorry, we can't find a location to match your search. Please try again.
+            </p>
             <div class="date-selection">
                 <p class="input-label">When?</p>
                 <label for="month1" class="input-label">From</label>
@@ -46,26 +53,47 @@
                     <option value="11">Nov</option>
                     <option value="12">Dec</option>
                 </select>
-                <input type="number" class="date-input" id="day1" placeholder="01" required>
-                <input type="number" class="date-input" id="year1" placeholder="2020" required>
-                <br>
-                <label class="input-label" for="month2">To</label>
-                <select id="month2" name="month2" required>
-                    <option value="01" selected>Jan</option>
-                    <option value="02">Feb</option>
-                    <option value="03">Mar</option>
-                    <option value="04">Apr</option>
-                    <option value="05">May</option>
-                    <option value="06">Jun</option>
-                    <option value="07">Jul</option>
-                    <option value="08">Aug</option>
-                    <option value="09">Sep</option>
-                    <option value="10">Oct</option>
-                    <option value="11">Nov</option>
-                    <option value="12">Dec</option>
-                </select>
-                <input type="number" placeholder="31" class="date-input" id="day2" required>
-                <input type="number" placeholder="2020" class="date-input" id="year2" required><span class="dates error hidden">Please provide a valid future date.</span>
+            <input type="text" 
+                class="date-input" 
+                id="day1" 
+                placeholder="01" 
+                required 
+                maxlength="2">
+            <input type="text" 
+                class="date-input" 
+                id="year1" 
+                placeholder="2020" 
+                required
+                maxlength="4">
+            <br>
+            <label class="input-label" for="month2">To</label>
+            <select id="month2" name="month2" required>
+                <option value="01" selected>Jan</option>
+                <option value="02">Feb</option>
+                <option value="03">Mar</option>
+                <option value="04">Apr</option>
+                <option value="05">May</option>
+                <option value="06">Jun</option>
+                <option value="07">Jul</option>
+                <option value="08">Aug</option>
+                <option value="09">Sep</option>
+                <option value="10">Oct</option>
+                <option value="11">Nov</option>
+                <option value="12">Dec</option>
+            </select>
+            <input type="text" 
+                placeholder="31" 
+                class="date-input" 
+                id="day2" 
+                required
+                maxlength="2">
+            <input type="text" 
+                placeholder="2020" 
+                class="date-input" 
+                id="year2" 
+                required
+                maxlength="4">
+            <span class="dates error hidden">Please provide a valid future date.</span>
             </div>
         
         <button class="location-submit">SUBMIT</button>
