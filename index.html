@@ -28,40 +28,41 @@
             <label class="input-label" for="location-search">Where are you going?</label>
             <br>
             <input type="text" name="location-search" class="location-input" id="location" value="Chicago" required>
+            <p class="location error hidden">Sorry, we can't find a location to match your search. Please try again.</p>
             <div class="date-selection">
                 <p class="input-label">When?</p>
                 <label for="month1" class="input-label">From</label>
                 <select id="month1" name="month1" required>
-                    <option value="01" selected>January</option>
-                    <option value="02">February</option>
-                    <option value="03">March</option>
-                    <option value="04">April</option>
+                    <option value="01" selected>Jan</option>
+                    <option value="02">Feb</option>
+                    <option value="03">Mar</option>
+                    <option value="04">Apr</option>
                     <option value="05">May</option>
-                    <option value="06">June</option>
-                    <option value="07">July</option>
-                    <option value="08">August</option>
-                    <option value="09">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
+                    <option value="06">Jun</option>
+                    <option value="07">Jul</option>
+                    <option value="08">Aug</option>
+                    <option value="09">Sep</option>
+                    <option value="10">Oct</option>
+                    <option value="11">Nov</option>
+                    <option value="12">Dec</option>
                 </select>
                 <input type="number" placeholder="Date" class="date-input" id="day1" value="01" required>
                 <input type="number" placeholder="Year" class="date-input" id="year1" value="2020" required>
                 <br>
                 <label class="input-label" for="month2">To</label>
                 <select id="month2" name="month2" required>
-                    <option value="01" selected>January</option>
-                    <option value="02">February</option>
-                    <option value="03">March</option>
-                    <option value="04">April</option>
+                    <option value="01" selected>Jan</option>
+                    <option value="02">Feb</option>
+                    <option value="03">Mar</option>
+                    <option value="04">Apr</option>
                     <option value="05">May</option>
-                    <option value="06">June</option>
-                    <option value="07">July</option>
-                    <option value="08">August</option>
-                    <option value="09">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
+                    <option value="06">Jun</option>
+                    <option value="07">Jul</option>
+                    <option value="08">Aug</option>
+                    <option value="09">Sep</option>
+                    <option value="10">Oct</option>
+                    <option value="11">Nov</option>
+                    <option value="12">Dec</option>
                 </select>
                 <input type="number" placeholder="Date" class="date-input" id="day2" value="31" required>
                 <input type="number" placeholder="Year" class="date-input" id="year2" value="2020" required><span class="dates error hidden">Please provide a valid future date.</span>
@@ -70,22 +71,27 @@
         <button class="location-submit">SUBMIT</button>
         </form>
     </div>
-    </div>
 
     <div class="js-error-message error">
+    </div>
+
     </div>
     
     <div class="location-select hidden outer">
         <header class="subheading">
             <p>Searching for upcoming concerts from</p>
-            <p><span class="date-submitted">{DATE1 to DATE2}</span> in...</p>
+            <p><span class="date-submitted">(dates submitted)</span> in...</p>
         </header>
         <div class="content">
         <p>(select closest match)</p>
         <div class="locations-list">
             <form id="locations">
             </form>
+            <ul>
             </ul>
+
+            <p>Not what you're looking for?</p>
+            <p><button class="search-again" onClick="window.location.reload();">Search again</button></p>
         </div>
     </div>
     </div>
@@ -101,10 +107,10 @@
         
         <div class="artists-flex">
 
-            <div class="artists">
+            <div class="artists event-list">
                 <h3>Upcoming Events</h3>
                 <div class="error no-events-available hidden">Sorry, it looks like there are no events available for your search. 
-                    <button onClick="window.location.reload();">Search again</button>
+                    <button class="search-again" onClick="window.location.reload();">Search again</button>
                 </div>
                 <ul id="events">  
                 </ul>

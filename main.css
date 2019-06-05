@@ -107,6 +107,10 @@ input, select {
     color:#0D0D0D;
 }
 
+#day1, #day2 {
+    width:40px;
+}
+
 .input-label {
     font-weight:600;
 }
@@ -184,6 +188,10 @@ button {
     font-weight:700;
 }
 
+button.search-again {
+    background-color:#F29F05;
+}
+
 /* Artist Response Styles */
 
 .artist-response {
@@ -199,6 +207,10 @@ button {
     width:100%;
     margin-right:0;
     font-size:14px;
+}
+
+.event-list {
+    padding:3px;
 }
 
 ul {
@@ -295,7 +307,7 @@ footer ul {
     display:flex;
     flex-flow:row wrap;
     justify content:space-evenly;
-    background:#590202;
+    background:#0D0D0D;
 }
 
 .track-cover {
@@ -397,3 +409,25 @@ footer ul {
     animation-name: fadeInUp;
     -webkit-animation-name: fadeInUp;
 }
+
+/* Custom scrollbar styles */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #0D0D0D; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #F29F05; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D94625; 
+  }

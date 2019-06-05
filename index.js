@@ -159,10 +159,9 @@ function getEvents(id, locationDisplayName, dates) {
         .then(responseJson => renderEventList(responseJson, locationDisplayName))
         .catch(err => {
             if (responseJson.totalEntries === 0) {
-                $('.js-event-error').innerHTML(`It looks like there are no events listed for your search.
-                <button class="search-again" onClick="window.location.reload();">Search again</button>`);
+                $('.js-event-error').text(`It looks like there are no events listed for your search.`);
             }
-            $('.js-event-error').innerHTML(`Uh oh! Something went wrong. Here's what we know: ${err.message} <button class="search-again" onClick="window.location.reload();">Search again</button>`);
+            $('.js-event-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
     });
 }
 
@@ -218,6 +217,7 @@ function renderDates(dates, dateArray) {
 }
 
 function renderLocations(responseJson, location, dates, dateArray) {
+    $('.landing-view').toggleClass('hidden animated animatedFadeInUp fadeInUp');
     $('.location-select').toggleClass('hidden animated animatedFadeInUp fadeInUp');
 
     renderDates(dates, dateArray);
@@ -266,9 +266,16 @@ function getLocations(location, dates, dateArray) {
             throw new Error
             (response.statusText);
         })
+        .then(responseJson => {
+            if (responseJson.resultsPage.totalEntries === 0) {
+                throw new Error
+                (`Sorry, we can't find any location that matches your search. Please try again.`)
+            }
+            return responseJson;
+        })
         .then(responseJson => renderLocations(responseJson, location, dates, dateArray))
         .catch(err => {
-            $('.js-error-message').innerHTML(`Uh oh! Something went wrong. Here's what we know: ${err.message} <button class="search-again" onClick="window.location.reload();">Search again</button>`);
+            $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
         });
 }
 
@@ -333,15 +340,78 @@ function getLocations(location, dates, dateArray) {
 //   }
 //   }
 
-function watchForm() {
-    // Listen for user to input location and dates and click submit
-    console.log('The watchForm function ran.');
 
-    window.addEventListener('DOMContentLoaded', (event) => {
-        console.log('DOM fully loaded and parsed');
-        $('#album-container').toggleClass('hidden');
+function renderAlbumArt(oneAlbumURL) {
+    $('#album-container').append(
+        `<img class="album-image" src="${oneAlbumURL}">`
+    );
+
+    $('#album-container').addClass('load');
+    // let myElement = document.querySelector("body");
+    // myElement.style.background="purple";
+}
+
+function getOneAlbum(responseJson) {
+    let oneAlbumArt = $.grep(responseJson.images, function(image) {
+        return image.width == 170;
     });
+    let oneAlbumURL = oneAlbumArt[0].url;
+    renderAlbumArt(oneAlbumURL);
+}
 
+function getAlbumArt(responseJson) {
+    for (let i = 0; i < responseJson.albums.length; i++) {
+        let url = `${responseJson.albums[i].links.images.href}?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl`;
+
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error
+                (response.statusText);})
+            .then(responseJson => getOneAlbum(responseJson))
+            .catch(err => {
+                $('.js-error-message').text(`
+                Uh oh! Something went wrong. Here's what we know: ${err.message}`)
+            })
+    }
+}
+
+function getStaffPicks() {
+    let url = 'https://api.napster.com/v2.2/albums/picks?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
+
+    fetch(url) 
+        .then(response =>  {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
+            (response.statusText);})
+        .then(responseJson => getAlbumArt(responseJson))
+        .catch(err => {
+            $('.js-error-message').text(`
+            Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
+}
+
+function getTopAlbums() {
+    let url = 'https://api.napster.com/v2.2/albums/top?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
+
+    fetch(url) 
+        .then(response =>  {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
+            (response.statusText);})
+        .then(responseJson => getAlbumArt(responseJson))
+        .catch(err => {
+            $('.js-error-message').text(`
+            Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
+}
+
+function updateFormValues() {
+    console.log(`Function updateFormValues ran.`)
     $('#day1').on('blur', function() {
         let str = document.getElementById('day1').value;
         console.log(`Value of string is ${str}`);
@@ -365,6 +435,18 @@ function watchForm() {
         console.log(`Value of string is ${str}`);
         document.getElementById('year2').value = str.padStart(4, "20");
     })
+}
+
+function watchForm() {
+    // Listen for user to input location and dates and click submit
+    console.log('The watchForm function ran.');
+
+    // window.addEventListener('DOMContentLoaded', (event) => {
+    //     console.log('DOM fully loaded and parsed');
+    //     $('#album-container').toggleClass('hidden');
+    // });
+
+    updateFormValues();
 
     $('.location-submit').click(function() {
         event.preventDefault();
@@ -410,6 +492,22 @@ function watchForm() {
             throw 'error';
         };
 
+        const parsedDate1 = Date.parse(date1string);
+        const parsedDate2 = Date.parse(date2string);
+
+        console.log(`date1string with the PARSE method returns ${parsedDate1}`);
+
+        if (isNaN(parsedDate1)) {
+            $('.dates').toggleClass('hidden');
+            throw 'error';
+        }
+
+        if (isNaN(parsedDate2)) {
+            $('.dates').toggleClass('hidden');
+            throw 'error';
+        }
+
+
         if (date1 < today) {
             console.log(`Today's date is greater than date1`)
             $('.dates').toggleClass('hidden');
@@ -429,67 +527,6 @@ function watchForm() {
             throw 'error';
         };
 
-        // let dateInputFirst = $('#day1').val();
-        // if (dateInputFirst.length < 2) {
-        //     $('.dates').toggleClass('hidden');
-        //     throw 'error';
-        // }
-        // else if (dateInputFirst > 31) {
-        //     $('.dates').toggleClass('hidden');
-        //     $('.dates').append('<p>Please provide a valid date.</p>');
-        //     throw 'error';
-        // }
-        // else if (dateInputFirst === 0) {
-        //     $('.dates').toggleClass('hidden');
-        //     $('.dates').append('<p>Please provide a valid date.</p>');
-        //     throw 'error';
-        // }
-
-
-        // let dateInputSecond = $('#day2').val();
-        // if (dateInputSecond.length < 2) {
-        //     $('.dates').toggleClass('hidden');
-        //     throw 'error';
-        // }
-        // else if (dateInputSecond > 31) {
-        //     $('.dates').toggleClass('hidden');
-        //     $('.dates').append('<p>Please provide a valid date.</p>');
-        //     throw 'error';
-        // }
-        // else if (dateInputSecond === 0) {
-        //     $('.dates').toggleClass('hidden');
-        //     $('.dates').append('<p>Please provide a valid date.</p>');
-        //     throw 'error';
-        // }
-
-
-        // let yearInputFirst = $('#year1').val();
-        // if (yearInputFirst.length < 4) {
-        //     $('.dates').toggleClass('hidden');
-        //     throw 'error';
-        // }
-        // else if (yearInputFirst < 2019) {
-        //     $('.dates').toggleClass('hidden');
-        //     $('.dates').append('<p>Dates must be in the future.</p>');
-        //     throw 'error';
-        // }
-        // else if (yearInputFirst === 0) {
-        //     $('.dates').toggleClass('hidden');
-        //     $('.dates').append('<p>Please provide a valid date.</p>');
-        //     throw 'error';
-        // }
-
-        // let yearInputSecond = $('#year2').val();
-        // if (yearInputSecond.length < 4) {
-        //     $('.dates').toggleClass('hidden');
-        //     throw 'error';
-        // }
-        // else if (yearInputSecond < 2019) {
-        //     $('.dates').toggleClass('hidden');
-        //     $('.dates').append('<p>Dates must be in the future.</p>');
-        //     throw 'error';
-        // }
-
         let location = $('.location-input').val();
         // Creating the variable 'dates' as an array with two items for min_date and max_date
         // Songkick date format must be YYYY-MM-DD
@@ -503,7 +540,6 @@ function watchForm() {
             year:$('#year2').val()}
         ]
 
-        $('.landing-view').toggleClass('hidden animated animatedFadeInUp fadeInUp');
         getLocations(location, dates, dateArray);
     });
 
@@ -514,80 +550,5 @@ function watchForm() {
 
     $('.landing-view').toggleClass('hidden');
 };
-
-function renderAlbumArt(oneAlbumURL) {
-    $('#album-container').append(
-        `<img class="album-image" src="${oneAlbumURL}">`
-    );
-
-    $('#album-container').addClass('load');
-    // let myElement = document.querySelector("body");
-    // myElement.style.background="purple";
-}
-
-function getOneAlbum(responseJson) {
-    let oneAlbumArt = $.grep(responseJson.images, function(image) {
-        return image.width == 170;
-    });
-    let oneAlbumURL = oneAlbumArt[0].url;
-    renderAlbumArt(oneAlbumURL);
-}
-
-function getAlbumArt(responseJson) {
-    for (let i = 0; i < responseJson.albums.length; i++) {
-        let url = `${responseJson.albums[i].links.images.href}?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl`;
-
-        fetch(url)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error
-                (response.statusText);})
-            .then(responseJson => getOneAlbum(responseJson))
-            .catch(err => {
-                $('.js-error-message').innerHTML(`
-                Uh oh! Something went wrong. Here's what we know: ${err.message}
-                <button class="search-again" onClick="window.location.reload();">Search again</button>
-                `)
-            })
-    }
-}
-
-function getStaffPicks() {
-    let url = 'https://api.napster.com/v2.2/albums/picks?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
-
-    fetch(url) 
-        .then(response =>  {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error
-            (response.statusText);})
-        .then(responseJson => getAlbumArt(responseJson))
-        .catch(err => {
-            $('.js-error-message').innerHTML(`
-            Uh oh! Something went wrong. Here's what we know: ${err.message}
-            <button class="search-again" onClick="window.location.reload();">Search again</button>
-            `)})
-}
-
-function getTopAlbums() {
-    let url = 'https://api.napster.com/v2.2/albums/top?apikey=MTE5OWJjOWQtOWQ5My00MmRjLWIyNmQtODkzMWY0ZjQxOTVl';
-
-    fetch(url) 
-        .then(response =>  {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error
-            (response.statusText);})
-        .then(responseJson => getAlbumArt(responseJson))
-        .catch(err => {
-            $('.js-error-message').innerHTML(`
-            Uh oh! Something went wrong. Here's what we know: ${err.message}
-            <button class="search-again" onClick="window.location.reload();">Search again</button>
-            `)})
-}
 
 watchForm();
