@@ -8,19 +8,19 @@ body {
     margin-bottom:75px;
     font-size:18px;
     line-height:24px;
-    background:black;
+    background:#0D0D0D;
 }
 
 a:link {
-    color:#F22E2E;
+    color:#D94625;
 }
 
 a:visited {
-    color:#BF3F3F;
+    color:#F29F05;
 }
 
 a:hover {
-    color:#590202;
+    color:#F29F05;
     text-decoration:none;
 }
 
@@ -31,21 +31,14 @@ a:active {
 /* Header Styles */
 
 header.main {
-    width:75%;
-    min-width:275px;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:40px;
-    background:#F22E2E;
-    color:white;
+    background:#F29F05;
+    color:#0D0D0D;
     text-align:center;
 }
 
 header.subheading {
-    background: #D8D9D7;
+    background: #F29F05;
     color: #0D0D0D;
-    border-radius: 5px;
-    padding: 5px;
     text-align:center;
 }
 
@@ -53,28 +46,42 @@ h1 {
     margin:0;
     line-height:50px;
     font-family: 'Work Sans', sans-serif;
+    font-weight:400;
+}
+
+.boldest {
     font-weight:900;
 }
 
 .subtitle {
     font-size:22px;
     line-height:30px;
+    font-weight:700;
 }
 
 /* Landing view styles */
 
 div {
-    background:white;
+    background:#BEBFB4;
+}
+
+div.outer {
+    border-radius:10px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:40px;
+    min-width:275px;
+    width:75%;
+    border:2px solid #F29F05;
+}
+
+div.content {
+    padding:8px;
+    text-align:center;
+    border-radius:10px;
 }
 
 .landing-view {
-    border:2px solid #F22E2E;
-    width:75%;
-    min-width:275px;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:0;
-    padding:8px;
 }
 
 .instructions {
@@ -93,11 +100,15 @@ label {
 input, select {
     margin-top:5px;
     margin-bottom:15px;
-    border:1px solid #F22E2E;
+    /* border:1px solid #D94625; */
     font-size:16px;
     border-radius:5px;
     text-align:center;
     color:#0D0D0D;
+}
+
+.input-label {
+    font-weight:600;
 }
 
 select:hover {
@@ -115,8 +126,8 @@ select:hover {
 
 .error {
     text-align:center;
-    color:#F22E2E;
-    background:#D8D9D7;
+    color:#0D0D0D;
+    background:#D94625;
     display:block;
     border-radius:5px;
 }
@@ -146,16 +157,6 @@ select:hover {
 
 /* Location Select Styles */
 
-.location-select {
-    border:2px solid #F22E2E;
-    width:75%;
-    min-width:275px;
-    margin-left:auto;
-    margin-right:auto;
-    padding:16px;
-    text-align:center;
-}
-
 .locations-list {
 }
 
@@ -165,12 +166,13 @@ select:hover {
 
 .location-result {
     width:250px;
+    margin-bottom:5px;
 }
 
 button {
     display:block;
-    background-color:#F22E2E;
-    color:white;
+    background-color:#F2EC91;
+    color:#0D0D0D;
     border-radius:5px;
     padding-top:8px;
     padding-bottom:8px;
@@ -178,19 +180,13 @@ button {
     padding-right:15px;
     margin-left:auto;
     margin-right:auto;
-    font-family:'Comfortaa', cursive;
+    font-family: 'Work Sans', sans-serif;
+    font-weight:700;
 }
 
 /* Artist Response Styles */
 
 .artist-response {
-    border:2px solid #F22E2E;
-    min-width:75%;
-    width:275px;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:0;
-    padding:8px;
     display:flex;
     flex-direction:column;
 }
@@ -212,27 +208,30 @@ ul {
 
 .artist-result {
     background:#0D0D0D;
-    color:#D8D9D7;
+    color:#F29F05;
     padding:5px;
 }
 
 .top {
     margin-top:5px;
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
 }
 
 .bottom {
     margin-bottom:5px;
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius:10px;
 }
 
 .artist-name {
-    font-weight:bold;
+    font-weight:500;
 }
 
 .event-link {
     font-size:12px;
     text-align:center;
     text-decoration:underline;
-    color:#BF3F3F;
 }
 
 .playbutton {
@@ -243,7 +242,8 @@ ul {
 }
 
 button.listen {
-    background:#590202;
+    background:#0D0D0D;
+    color:#BEBFB4;
     margin-right:unset;
     margin-left:unset;
     text-align:left;
@@ -255,20 +255,19 @@ button.listen {
 /* Music player styles */
 
 .music-player {
-    background:#590202;
+    background:#0D0D0D;
     min-height:300px;
-    color:white;
+    color:#BEBFB4;
     padding:8px;
     border-radius:10px;
-    border: 2px solid #0D0D0D;
     position:relative;
 }
 
 .player-placeholder {
-    background:black;
+    background:#0D0D0D;
     width:100%;
     min-height:100px;
-    color:white;
+    color:#BEBFB4;
 }
 
 /* Footer styles */
@@ -310,7 +309,7 @@ footer ul {
     background:#0D0D0D;
     font-style:'Lato', sans-serif;
     font-size:16px;
-    color: white;
+    color: #BEBFB4;
     text-align: left;
     padding-left:5px;
 }
@@ -357,3 +356,44 @@ footer ul {
     }
 
   }
+
+/* Animation styles */
+
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0,40px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        transform: translate3d(0,40px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: both
+}
+
+.animatedFadeInUp {
+    opacity: 0
+}
+
+.fadeInUp {
+    opacity: 0;
+    animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+}

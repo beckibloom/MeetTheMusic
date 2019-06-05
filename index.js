@@ -58,7 +58,7 @@ function getArtistObject(artist) {
         })
         .then(responseJson => playNapster(responseJson, apikeyN))
         .finally(() => scrollToPlayer())
-        .catch(err => {$('.js-napster-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
+        .catch(err => {$('.js-napster-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)});
 }
 
 function scrollToPlayer() {
@@ -85,9 +85,7 @@ function getMoreEvents() {
 }
 
 function renderEventList(responseJson, locationDisplayName) {
-    $('.artist-response').toggleClass('hidden');
-
-    $('.artist-response').fadeIn();
+    $('.artist-response').toggleClass('hidden animated animatedFadeInUp fadeInUp');
 
     //Update the location displayed at the top of this section
     $('.location-submitted').text(`${locationDisplayName}`);
@@ -97,7 +95,7 @@ function renderEventList(responseJson, locationDisplayName) {
     console.log(responseJson);
 
     if (responseJson.resultsPage.totalEntries === 0) {
-        $('.no-events-available').toggleClass('hidden');
+        $('.no-events-available').toggleClass('hidden animated animatedFadeInUp fadeInUp');
     }
 
     for (let i = 0; i < responseJson.resultsPage.results.event.length; i++){
@@ -161,9 +159,10 @@ function getEvents(id, locationDisplayName, dates) {
         .then(responseJson => renderEventList(responseJson, locationDisplayName))
         .catch(err => {
             if (responseJson.totalEntries === 0) {
-                $('.js-event-error').text(`It looks like there are no events listed for your search. Refresh the page to try a new search.`);
+                $('.js-event-error').innerHTML(`It looks like there are no events listed for your search.
+                <button class="search-again" onClick="window.location.reload();">Search again</button>`);
             }
-            $('.js-event-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
+            $('.js-event-error').innerHTML(`Uh oh! Something went wrong. Here's what we know: ${err.message} <button class="search-again" onClick="window.location.reload();">Search again</button>`);
     });
 }
 
@@ -182,7 +181,7 @@ function watchLocations(dates) {
         console.log(`A location option with id ${id} was selected.`)
         let locationDisplayName = event.currentTarget.innerText;
         console.log(`locationDisplayName is ${locationDisplayName}`);
-        $('.location-select').toggleClass('hidden');
+        $('.location-select').toggleClass('hidden animated animatedFadeInUp fadeInUp');
         getEvents(id, locationDisplayName, dates);
     })
 }
@@ -219,10 +218,7 @@ function renderDates(dates, dateArray) {
 }
 
 function renderLocations(responseJson, location, dates, dateArray) {
-    $('.location-select').toggleClass('hidden');
-
-    $('.location-select').fadeIn();
-
+    $('.location-select').toggleClass('hidden animated animatedFadeInUp fadeInUp');
 
     renderDates(dates, dateArray);
 
@@ -272,16 +268,79 @@ function getLocations(location, dates, dateArray) {
         })
         .then(responseJson => renderLocations(responseJson, location, dates, dateArray))
         .catch(err => {
-            $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
+            $('.js-error-message').innerHTML(`Uh oh! Something went wrong. Here's what we know: ${err.message} <button class="search-again" onClick="window.location.reload();">Search again</button>`);
         });
 }
+
+// function validatedate(inputText)
+//   {
+//   var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+//   // Match the date format through regular expression
+//   if(inputText.value.match(dateformat))
+//   {
+//   document.form1.text1.focus();
+//   //Test which seperator is used '/' or '-'
+//   var opera1 = inputText.value.split('/');
+//   var opera2 = inputText.value.split('-');
+//   lopera1 = opera1.length;
+//   lopera2 = opera2.length;
+//   // Extract the string into month, date and year
+//   if (lopera1>1)
+//   {
+//   var pdate = inputText.value.split('/');
+//   }
+//   else if (lopera2>1)
+//   {
+//   var pdate = inputText.value.split('-');
+//   }
+//   var dd = parseInt(pdate[0]);
+//   var mm  = parseInt(pdate[1]);
+//   var yy = parseInt(pdate[2]);
+//   // Create list of days of a month [assume there is no leap year by default]
+//   var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+//   if (mm==1 || mm>2)
+//   {
+//   if (dd>ListofDays[mm-1])
+//   {
+//   alert('Invalid date format!');
+//   return false;
+//   }
+//   }
+//   if (mm==2)
+//   {
+//   var lyear = false;
+//   if ( (!(yy % 4) && yy % 100) || !(yy % 400)) 
+//   {
+//   lyear = true;
+//   }
+//   if ((lyear==false) && (dd>=29))
+//   {
+//   alert('Invalid date format!');
+//   return false;
+//   }
+//   if ((lyear==true) && (dd>29))
+//   {
+//   alert('Invalid date format!');
+//   return false;
+//   }
+//   }
+//   }
+//   else
+//   {
+//   alert("Invalid date format!");
+//   document.form1.text1.focus();
+//   return false;
+//   }
+//   }
 
 function watchForm() {
     // Listen for user to input location and dates and click submit
     console.log('The watchForm function ran.');
 
-    $('main').fadeIn(3000);
-
+    window.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM fully loaded and parsed');
+        $('#album-container').toggleClass('hidden');
+    });
 
     $('#day1').on('blur', function() {
         let str = document.getElementById('day1').value;
@@ -310,6 +369,40 @@ function watchForm() {
     $('.location-submit').click(function() {
         event.preventDefault();
 
+        let date1string = `${$('#year1').val()}-${$('#month1').val()}-${$('#day1').val()}`;
+        let date1 = new Date($('#year1').val(), ($('#month1').val()-1), $('#day1').val());
+
+        // console.log(new Date(date1).toISOString().getMonth() + 1);
+        const date2string = `${$('#year2').val()}-${$('#month2').val()}-${$('#day2').val()}`;
+        const date2 = new Date($('#year2').val(), ($('#month2').val()-1), $('#day2').val());
+
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth()+1; //As January is 0.
+        let yyyy = today.getFullYear();
+        // const todayString = `${yyyy}-${mm}-${dd}`;
+
+        let dates = [date1string,date2string];
+        //Run the getLocations function to get locations from Songkick with the form information
+
+        let curdate = function(sp){            
+            if(dd<10) dd='0'+dd;
+            if(mm<10) mm='0'+mm;
+            return (yyyy+sp+mm+sp+dd);
+        };
+
+        let curmonth = function(){
+            return (mm);
+        };
+
+        let curyear = function(){
+            return (yyyy);
+        };
+
+        console.log(`Current month is ${curmonth()}`);
+        console.log(`Current year is ${curyear()}`);
+        console.log(`Current date is ${curdate('-')}`);
+
         let locationInput = $('#location').val();
         console.log(`the value of location input is ${locationInput}`)
         if (locationInput.length <= 3) {
@@ -317,39 +410,89 @@ function watchForm() {
             throw 'error';
         };
 
-        let dateInputFirst = $('#day1').val();
-        if (dateInputFirst.length < 2) {
+        if (date1 < today) {
+            console.log(`Today's date is greater than date1`)
             $('.dates').toggleClass('hidden');
             throw 'error';
-        }
+        };
 
-        let dateInputSecond = $('#day2').val();
-        if (dateInputSecond.length < 2) {
+        if (date2 < today) {
+            console.log(`Today's date is greater than date2`)
             $('.dates').toggleClass('hidden');
             throw 'error';
-        }
+        };
+        
+        if (date2 < date1) {
+            console.log(`date1 is greater than date2`)
+            $('.dates').toggleClass('hidden');
+            $('.dates').append('<p>Date 1 must be earlier or the same as date 2.</p>');
+            throw 'error';
+        };
 
-        let yearInputFirst = $('#year1').val();
-        if (yearInputFirst.length < 4) {
-            $('.dates').toggleClass('hidden');
-            throw 'error';
-        }
+        // let dateInputFirst = $('#day1').val();
+        // if (dateInputFirst.length < 2) {
+        //     $('.dates').toggleClass('hidden');
+        //     throw 'error';
+        // }
+        // else if (dateInputFirst > 31) {
+        //     $('.dates').toggleClass('hidden');
+        //     $('.dates').append('<p>Please provide a valid date.</p>');
+        //     throw 'error';
+        // }
+        // else if (dateInputFirst === 0) {
+        //     $('.dates').toggleClass('hidden');
+        //     $('.dates').append('<p>Please provide a valid date.</p>');
+        //     throw 'error';
+        // }
 
-        let yearInputSecond = $('#year2').val();
-        if (yearInputSecond.length < 4) {
-            $('.dates').toggleClass('hidden');
-            throw 'error';
-        }
+
+        // let dateInputSecond = $('#day2').val();
+        // if (dateInputSecond.length < 2) {
+        //     $('.dates').toggleClass('hidden');
+        //     throw 'error';
+        // }
+        // else if (dateInputSecond > 31) {
+        //     $('.dates').toggleClass('hidden');
+        //     $('.dates').append('<p>Please provide a valid date.</p>');
+        //     throw 'error';
+        // }
+        // else if (dateInputSecond === 0) {
+        //     $('.dates').toggleClass('hidden');
+        //     $('.dates').append('<p>Please provide a valid date.</p>');
+        //     throw 'error';
+        // }
+
+
+        // let yearInputFirst = $('#year1').val();
+        // if (yearInputFirst.length < 4) {
+        //     $('.dates').toggleClass('hidden');
+        //     throw 'error';
+        // }
+        // else if (yearInputFirst < 2019) {
+        //     $('.dates').toggleClass('hidden');
+        //     $('.dates').append('<p>Dates must be in the future.</p>');
+        //     throw 'error';
+        // }
+        // else if (yearInputFirst === 0) {
+        //     $('.dates').toggleClass('hidden');
+        //     $('.dates').append('<p>Please provide a valid date.</p>');
+        //     throw 'error';
+        // }
+
+        // let yearInputSecond = $('#year2').val();
+        // if (yearInputSecond.length < 4) {
+        //     $('.dates').toggleClass('hidden');
+        //     throw 'error';
+        // }
+        // else if (yearInputSecond < 2019) {
+        //     $('.dates').toggleClass('hidden');
+        //     $('.dates').append('<p>Dates must be in the future.</p>');
+        //     throw 'error';
+        // }
 
         let location = $('.location-input').val();
         // Creating the variable 'dates' as an array with two items for min_date and max_date
         // Songkick date format must be YYYY-MM-DD
-
-        let date1 = `${$('#year1').val()}-${$('#month1').val()}-${$('#day1').val()}`;
-        // console.log(new Date(date1).toISOString().getMonth() + 1);
-        let date2 = `${$('#year2').val()}-${$('#month2').val()}-${$('#day2').val()}`;
-        let dates = [date1,date2];
-        //Run the getLocations function to get locations from Songkick with the form information
 
         let dateArray = [
             {month:$('#month1').val(),
@@ -360,7 +503,7 @@ function watchForm() {
             year:$('#year2').val()}
         ]
 
-        $('.landing-view').toggleClass('hidden');
+        $('.landing-view').toggleClass('hidden animated animatedFadeInUp fadeInUp');
         getLocations(location, dates, dateArray);
     });
 
@@ -403,7 +546,10 @@ function getAlbumArt(responseJson) {
                 (response.statusText);})
             .then(responseJson => getOneAlbum(responseJson))
             .catch(err => {
-                $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)
+                $('.js-error-message').innerHTML(`
+                Uh oh! Something went wrong. Here's what we know: ${err.message}
+                <button class="search-again" onClick="window.location.reload();">Search again</button>
+                `)
             })
     }
 }
@@ -420,7 +566,10 @@ function getStaffPicks() {
             (response.statusText);})
         .then(responseJson => getAlbumArt(responseJson))
         .catch(err => {
-            $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
+            $('.js-error-message').innerHTML(`
+            Uh oh! Something went wrong. Here's what we know: ${err.message}
+            <button class="search-again" onClick="window.location.reload();">Search again</button>
+            `)})
 }
 
 function getTopAlbums() {
@@ -435,7 +584,10 @@ function getTopAlbums() {
             (response.statusText);})
         .then(responseJson => getAlbumArt(responseJson))
         .catch(err => {
-            $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`)})
+            $('.js-error-message').innerHTML(`
+            Uh oh! Something went wrong. Here's what we know: ${err.message}
+            <button class="search-again" onClick="window.location.reload();">Search again</button>
+            `)})
 }
 
 watchForm();
