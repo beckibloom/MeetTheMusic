@@ -430,4 +430,10 @@ footer ul {
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #D94625; 
-  }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
