@@ -77,15 +77,46 @@ function watchArtists() {
         })
 }
 
-function getMoreEvents() {
+function getMoreEvents(params, locationDisplayName) {
     // Listen for the user to click the "see more events" button then run getEvents/renderEventList again for more items
     // NOT A PRIORITY
     console.log('The getMoreEvents function ran.');
+    $('.see-more').click(function() {
+        event.preventDefault();
+        params.page = ++params.page;
+        const queryString = formatQueryParams(params);
+        const url = `https://api.songkick.com/api/3.0/events.json?` + queryString;
+        console.log(`The getMoreEvents function is fetching data from URL ${url}`);
 
+        fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
+            (response.statusText);
+        })
+        .then(responseJson => {
+            let totalEntries = responseJson.resultsPage.totalEntries;
+            let requestedEntries = responseJson.resultsPage.page * responseJson.resultsPage.perPage;
+            console.log(`The value of requestedEntries is currently ${requestedEntries}`);
+            if (totalEntries < requestedEntries) {
+                throw new Error
+                (`No more events available`);
+            }
+            return responseJson;
+        })
+        .then(responseJson => renderEventList(responseJson, locationDisplayName, params))
+        .catch(err => {
+            $('.js-event-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
+    });
+})
 }
 
-function renderEventList(responseJson, locationDisplayName) {
-    $('.artist-response').toggleClass('hidden animated animatedFadeInUp fadeInUp');
+function renderEventList(responseJson, locationDisplayName, params) {
+    let element = document.getElementById('artist-response');
+    element.classList.remove('hidden');
+    $('.artist-response').addClass('animated animatedFadeInUp fadeInUp');
 
     //Update the location displayed at the top of this section
     $('.location-submitted').text(`${locationDisplayName}`);
@@ -123,11 +154,7 @@ function renderEventList(responseJson, locationDisplayName) {
         <p class="event-link"><a href="${eventLink}" target="_blank" class="event link">More info & buy tickets</a></p></li>`);
     };
 
-    // $('#events').append(
-    //     `<li class="artist-result request-more">
-    //         <button class="see-more">See more events</button>
-    //     </li>`
-    // )
+    getMoreEvents(params, locationDisplayName);
     watchArtists();
 }
 
@@ -142,6 +169,7 @@ function getEvents(id, locationDisplayName, dates) {
         min_date: `${date_min}`,
         max_date: `${date_max}`,
         type: 'Concert',
+        page: 1,
         per_page: 10
     };
     const queryString = formatQueryParams(params);
@@ -156,7 +184,7 @@ function getEvents(id, locationDisplayName, dates) {
             throw new Error
             (response.statusText);
         })
-        .then(responseJson => renderEventList(responseJson, locationDisplayName))
+        .then(responseJson => renderEventList(responseJson, locationDisplayName, params))
         .catch(err => {
             if (responseJson.totalEntries === 0) {
                 $('.js-event-error').text(`It looks like there are no events listed for your search.`);
@@ -278,68 +306,6 @@ function getLocations(location, dates, dateArray) {
             $('.js-error-message').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
         });
 }
-
-// function validatedate(inputText)
-//   {
-//   var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-//   // Match the date format through regular expression
-//   if(inputText.value.match(dateformat))
-//   {
-//   document.form1.text1.focus();
-//   //Test which seperator is used '/' or '-'
-//   var opera1 = inputText.value.split('/');
-//   var opera2 = inputText.value.split('-');
-//   lopera1 = opera1.length;
-//   lopera2 = opera2.length;
-//   // Extract the string into month, date and year
-//   if (lopera1>1)
-//   {
-//   var pdate = inputText.value.split('/');
-//   }
-//   else if (lopera2>1)
-//   {
-//   var pdate = inputText.value.split('-');
-//   }
-//   var dd = parseInt(pdate[0]);
-//   var mm  = parseInt(pdate[1]);
-//   var yy = parseInt(pdate[2]);
-//   // Create list of days of a month [assume there is no leap year by default]
-//   var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
-//   if (mm==1 || mm>2)
-//   {
-//   if (dd>ListofDays[mm-1])
-//   {
-//   alert('Invalid date format!');
-//   return false;
-//   }
-//   }
-//   if (mm==2)
-//   {
-//   var lyear = false;
-//   if ( (!(yy % 4) && yy % 100) || !(yy % 400)) 
-//   {
-//   lyear = true;
-//   }
-//   if ((lyear==false) && (dd>=29))
-//   {
-//   alert('Invalid date format!');
-//   return false;
-//   }
-//   if ((lyear==true) && (dd>29))
-//   {
-//   alert('Invalid date format!');
-//   return false;
-//   }
-//   }
-//   }
-//   else
-//   {
-//   alert("Invalid date format!");
-//   document.form1.text1.focus();
-//   return false;
-//   }
-//   }
-
 
 function renderAlbumArt(oneAlbumURL) {
     $('#album-container').append(
