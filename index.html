@@ -27,7 +27,7 @@
         <form action="">
             <label class="input-label" for="location-search">Where are you going?</label>
             <br>
-            <input type="text" name="location-search" class="location-input" id="location" value="Chicago" required>
+            <input type="text" name="location-search" class="location-input" id="location" placeholder="Search for your city" required>
             <p class="location error hidden">Sorry, we can't find a location to match your search. Please try again.</p>
             <div class="date-selection">
                 <p class="input-label">When?</p>
@@ -46,8 +46,8 @@
                     <option value="11">Nov</option>
                     <option value="12">Dec</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input" id="day1" value="01" required>
-                <input type="number" placeholder="Year" class="date-input" id="year1" value="2020" required>
+                <input type="number" class="date-input" id="day1" placeholder="01" required>
+                <input type="number" class="date-input" id="year1" placeholder="2020" required>
                 <br>
                 <label class="input-label" for="month2">To</label>
                 <select id="month2" name="month2" required>
@@ -64,8 +64,8 @@
                     <option value="11">Nov</option>
                     <option value="12">Dec</option>
                 </select>
-                <input type="number" placeholder="Date" class="date-input" id="day2" value="31" required>
-                <input type="number" placeholder="Year" class="date-input" id="year2" value="2020" required><span class="dates error hidden">Please provide a valid future date.</span>
+                <input type="number" placeholder="31" class="date-input" id="day2" required>
+                <input type="number" placeholder="2020" class="date-input" id="year2" required><span class="dates error hidden">Please provide a valid future date.</span>
             </div>
         
         <button class="location-submit">SUBMIT</button>
