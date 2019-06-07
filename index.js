@@ -176,6 +176,8 @@ function getEvents(id, locationDisplayName, dates) {
     const url = `https://api.songkick.com/api/3.0/events.json?` + queryString;
     console.log(`The getEvents function is fetching data from URL ${url}`);
 
+    $('.loader').toggleClass('hidden');
+
     fetch(url)
         .then(response => {
             if (response.ok) {
@@ -190,7 +192,8 @@ function getEvents(id, locationDisplayName, dates) {
                 $('.js-event-error').text(`It looks like there are no events listed for your search.`);
             }
             $('.js-event-error').text(`Uh oh! Something went wrong. Here's what we know: ${err.message}`);
-    });
+        })
+        .finally(() => $('.loader').toggleClass('hidden'))
 }
 
 function getItemIdFromElement(item) {
