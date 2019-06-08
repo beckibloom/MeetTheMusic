@@ -13,7 +13,9 @@
 <body>
 
 <main>
-    <div class="loader hidden"></div>
+    <div class="loader-container">
+        <div class="loader hidden"></div>
+    </div>
 
     <div id="album-container" class="hidden"></div>
 
@@ -151,9 +153,7 @@
                 <p class="not-supported hidden">So sorry- it looks like this browser doesn't support our music player yet! :(</p>
                 <div id="player-frame">
 
-                <!-- <iframe [src]="https://beckibloom.github.io/MeetTheMusic/" width="100%" height="600"> -->
-
-                <!-- HTML Content from the Napster Developer example -->
+                <!-- HTML Content from the Napster Developer page -->
 
                     <div class="container">
                         <span class="js-napster-error error"></span>
@@ -164,9 +164,6 @@
 
                     <script id="tracks-template" type="text/x-handlebars-template">
                         {{#each tracks}}
-                        <!-- <div data-track-id="{{id}}" 
-                        style="background-image:url(https://api.napster.com/v2.2/albums/{{albumId}}/images?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4)" 
-                        class="cover"> -->
                         <div data-track-id="{{id}}" 
                         style="" 
                         class="cover">
@@ -178,9 +175,7 @@
                         {{/each}}
                     </script>
 
-                <!-- End content from Napster Developer example -->
-
-                <!-- </iframe> -->
+                <!-- End Napster Developer content -->
 
                 </div>
 
@@ -198,11 +193,7 @@
 </footer>
 </body>
 
-<!-- <script src="date-en-US.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/x.y.z/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es-us.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script> -->
 <script src="handlebars.js"></script>
 <script src="index.js"></script>
 
