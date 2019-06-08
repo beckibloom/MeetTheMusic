@@ -21,20 +21,20 @@ https://beckibloom.github.io/MeetTheMusic/
 
 Landing page:
 
-![landing page](images\landing-page.jpg)
+![landing page](images/landing-page.jpg)
 
 Location select:
 
-![location select](images\location-select.jpg)
+![location select](images/location-select.jpg)
 
 Explore events:
 
-![explore events](images\event-explore.jpg)
+![explore events](images/event-explore.jpg)
 
 Explore events on mobile:
 
-![explore events mobile](images\event-explore-mobile.jpg)
+![explore events mobile](images/event-explore-mobile.jpg)
 
 Music player on mobile:
 
-![music player mobile](images\music-player-mobile.jpg)
+![music player mobile](images/music-player-mobile.jpg)
